@@ -1,0 +1,31 @@
+---
+import { eyebrow as eyebrowClass } from "../data/site";
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  lead?: string;
+  watermark?: string;
+}
+
+const { eyebrow, title, lead, watermark } = Astro.props;
+---
+
+<section class="relative pb-12 pt-16 sm:pb-16 sm:pt-24">
+  {
+    watermark && (
+      <p
+        aria-hidden="true"
+        data-parallax="-0.12"
+        class="pointer-events-none absolute -top-2 right-0 -z-10 select-none font-display text-[34vw] italic leading-none text-sage-200/60 lg:-right-10 lg:text-[22rem]"
+      >
+        {watermark}
+      </p>
+    )
+  }
+  <p class={`reveal ${eyebrowClass}`}>{eyebrow}</p>
+  <h1 class="reveal mt-5 max-w-4xl font-display text-5xl font-medium leading-[1.02] tracking-tight text-zinc-900 sm:text-7xl lg:text-8xl">
+    {title}
+  </h1>
+  {lead && <p class="reveal mt-8 max-w-2xl text-lg leading-relaxed text-zinc-700">{lead}</p>}
+</section>

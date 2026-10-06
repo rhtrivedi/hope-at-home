@@ -1,0 +1,137 @@
+---
+import { ClientRouter } from "astro:transitions";
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..600;1,9..144,400..600&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <ClientRouter />
+    <!-- .reveal content is only hidden while this class is set. If the animation script below
+         has not started within 3s, the class is dropped so nothing can stay invisible. -->
+    <script is:inline>
+      document.documentElement.classList.add("reveal-ready");
+      setTimeout(() => {
+        if (!window.__revealStarted) document.documentElement.classList.remove("reveal-ready");
+      }, 3000);
+    </script>
+  </head>
+  <body class="overflow-x-clip bg-zinc-50 font-sans text-zinc-600 antialiased">
+    <slot />
+
+    <script>
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+      const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
+
+      let parallaxEls: HTMLElement[] = [];
+      let ticking = false;
+
+      // .reveal -> .active as elements scroll into view; items entering together are staggered.
+      function initReveal() {
+        const els = [...document.querySelectorAll<HTMLElement>(".reveal:not(.active)")].filter((el) => !el.dataset.revealBound);
+        els.forEach((el) => (el.dataset.revealBound = "true"));
+        if (!("IntersectionObserver" in window)) {
+          els.forEach((el) => el.classList.add("active"));
+          return;
+        }
+        const observer = new IntersectionObserver(
+          (entries) => {
+            let i = 0;
+            for (const entry of entries) {
+              if (!entry.isIntersecting) continue;
+              const el = entry.target as HTMLElement;
+              el.style.setProperty("--reveal-delay", `${i++ * 90}ms`);
+              el.classList.add("active");
+              observer.unobserve(el);
+            }
+          },
+          { threshold: 0.1, rootMargin: "0px 0px -6% 0px" },
+        );
+        els.forEach((el) => observer.observe(el));
+      }
+
+      // data-parallax="0.06": shift by that fraction of the distance from the viewport centre.
+      function updateParallax() {
+        ticking = false;
+        const mid = window.innerHeight / 2;
+        for (const el of parallaxEls) {
+          const frame = (el.parentElement ?? el).getBoundingClientRect();
+          let offset = (frame.top + frame.height / 2 - mid) * Number(el.dataset.parallax);
+          // Images are scaled up 20%, so keep the shift inside that spare 10% per edge.
+          if (el instanceof HTMLImageElement) {
+            const limit = frame.height * 0.1;
+            offset = Math.max(-limit, Math.min(limit, offset));
+          }
+          el.style.transform = `translate3d(0, ${offset.toFixed(1)}px, 0)`;
+        }
+      }
+
+      function initParallax() {
+        parallaxEls = reducedMotion.matches ? [] : [...document.querySelectorAll<HTMLElement>("[data-parallax]")];
+        updateParallax();
+      }
+
+      // data-magnetic: the element leans toward the cursor while hovered.
+      function initMagnetic() {
+        if (reducedMotion.matches || !finePointer.matches) return;
+        document.querySelectorAll<HTMLElement>("[data-magnetic]").forEach((el) => {
+          if (el.dataset.magneticBound) return;
+          el.dataset.magneticBound = "true";
+          el.addEventListener("pointermove", (event) => {
+            const box = el.getBoundingClientRect();
+            const x = (event.clientX - box.left - box.width / 2) * 0.25;
+            const y = (event.clientY - box.top - box.height / 2) * 0.35;
+            el.style.translate = `${x.toFixed(1)}px ${y.toFixed(1)}px`;
+          });
+          el.addEventListener("pointerleave", () => {
+            el.style.translate = "";
+          });
+        });
+      }
+
+      function onScroll() {
+        if (ticking || parallaxEls.length === 0) return;
+        ticking = true;
+        requestAnimationFrame(updateParallax);
+      }
+
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", onScroll, { passive: true });
+
+      function init() {
+        (window as any).__revealStarted = true;
+        document.documentElement.classList.add("reveal-ready");
+        initReveal();
+        initParallax();
+        initMagnetic();
+      }
+
+      // Runs after every view-transition navigation, and once right away: the router can fire its
+      // first astro:page-load before this script has loaded, which would leave .reveal content hidden.
+      document.addEventListener("astro:page-load", init);
+      // A navigation swaps the <html> attributes, so restore the class before the new page paints.
+      document.addEventListener("astro:after-swap", () => document.documentElement.classList.add("reveal-ready"));
+      init();
+    </script>
+  </body>
+</html>
