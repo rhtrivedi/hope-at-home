@@ -1,61 +1,39 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import Header from "../../components/Header.astro";
-import Footer from "../../components/Footer.astro";
 import PageHero from "../../components/PageHero.astro";
+import AreaIcon from "../../components/AreaIcon.astro";
 import ContactCta from "../../components/ContactCta.astro";
 import { areas } from "../../data/areas";
-import { parallaxImage, photo } from "../../data/site";
+import { cardLink, container, h3 } from "../../data/site";
 ---
 
 <Layout
   title="Areas of Care — Hope at Home Counselling Services"
-  description="Counselling for postpartum, anxiety and depression, ADHD, and couples — a compassionate, judgment-free space with Kunjal Bhatt, RSW."
+  description={`Counselling for ${areas.map((area) => area.title).join(", ")} — a compassionate, judgment-free space with Kunjal Bhatt, RSW.`}
 >
-  <Header />
+  <PageHero
+    eyebrow="Our areas of care"
+    title="What would you like support with?"
+    lead="Everyone's story is different — and so is the support they need. Choose the one that sounds most like you."
+  />
 
-  <main class="mx-auto max-w-7xl px-5 sm:px-8">
-    <PageHero
-      eyebrow="Our areas of care"
-      title="Support shaped around what you're carrying."
-      lead="Everyone's story is different — and so is the support they need. Here is where we can begin."
-      watermark="care"
-    />
-
-    <section class="pb-12 pt-4 lg:pb-24" aria-label="Areas of care">
-      {areas.map((area, i) => (
-        <a href={area.href} class="group relative mb-20 block last:mb-0 lg:mb-32">
-          <div class:list={["reveal aspect-video overflow-hidden rounded-2xl sm:aspect-[21/9]", i % 2 === 0 ? "lg:ml-[16%]" : "lg:mr-[16%]"]}>
-            <img
-              src={photo(area.imageId, 1600, "21:9")}
-              alt={area.alt}
-              loading={i === 0 ? "eager" : "lazy"}
-              data-parallax="0.06"
-              class={`${parallaxImage} transition-[scale] duration-700 group-hover:scale-[1.26]`}
-            />
-          </div>
-
-          <div
-            class:list={[
-              "reveal relative z-10 mx-4 -mt-12 rounded-2xl bg-white p-8 shadow-xl transition-shadow duration-300 group-hover:shadow-2xl sm:p-12 lg:mx-0 lg:-mt-40 lg:w-[32rem]",
-              i % 2 === 0 ? "lg:mr-auto" : "lg:ml-auto",
-            ]}
-          >
-            <p class="font-display text-sm italic text-sage-600" aria-hidden="true">0{i + 1}</p>
-            <h2 class="mt-3 font-display text-4xl font-medium tracking-tight text-zinc-900 sm:text-5xl">{area.title}</h2>
-            <p class="mt-5 leading-relaxed">{area.summary}</p>
-            <p class="mt-6 font-display text-xl italic text-sage-700">{area.closing}</p>
-            <span class="link-redraw mt-8 inline-flex items-center gap-2 text-sm font-semibold text-zinc-900">
-              Learn more
-              <span class="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">&rarr;</span>
+  <section class={`${container} py-6 sm:py-10`} aria-label="Areas of care">
+    <ul class="grid gap-4 sm:grid-cols-2">
+      {areas.map((area) => (
+        <li class="flex">
+          <a href={area.href} class={`${cardLink} w-full`}>
+            <span class="grid size-20 place-items-center rounded-2xl bg-tint text-ink"><AreaIcon slug={area.slug} class="size-14" /></span>
+            <h2 class={`${h3} mt-4`}>{area.title}</h2>
+            <p class="mt-3 text-lg leading-relaxed text-body">{area.short}</p>
+            <p class="mt-4 text-lg font-bold text-brand">{area.closing}</p>
+            <span class="mt-auto pt-6 text-base font-bold text-ink underline decoration-2 underline-offset-4 group-hover:decoration-accent-strong">
+              Read about {area.title} <span aria-hidden="true">&rarr;</span>
             </span>
-          </div>
-        </a>
+          </a>
+        </li>
       ))}
-    </section>
+    </ul>
+  </section>
 
-    <ContactCta />
-  </main>
-
-  <Footer />
+  <ContactCta />
 </Layout>

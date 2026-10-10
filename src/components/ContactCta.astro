@@ -1,53 +1,14 @@
 ---
-import { email, hours, phone, psychologyTodayUrl } from "../data/site";
+import { buttonPrimary, buttonSecondary, container, h2, phone } from "../data/site";
 ---
 
-<section class="reveal relative overflow-hidden rounded-2xl bg-zinc-900 text-white" aria-labelledby="contact-heading">
-  <p
-    aria-hidden="true"
-    data-parallax="-0.1"
-    class="pointer-events-none absolute -bottom-10 -left-4 select-none font-display text-[30vw] italic leading-none text-white/[0.04] lg:text-[20rem]"
-  >
-    hello
-  </p>
-  <div class="relative grid gap-12 p-8 sm:p-12 lg:grid-cols-12 lg:p-20">
-    <div class="lg:col-span-7">
-      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-rose-400">Get in touch</p>
-      <h2 id="contact-heading" class="mt-4 font-display text-4xl font-medium leading-tight tracking-tight sm:text-6xl">
-        When you are ready,
-        <span class="block italic text-sage-300 lg:pl-16">we are here.</span>
-      </h2>
-      <div class="mt-10 flex flex-col gap-3 sm:flex-row">
-        <a href="/contact" data-magnetic class="rounded-xl bg-rose-600 px-7 py-4 text-center font-semibold text-white transition-all duration-300 hover:scale-[1.02] hover:bg-rose-500 hover:shadow-lg">
-          Let's Connect
-        </a>
-        <a href={psychologyTodayUrl} target="_blank" rel="noopener noreferrer" data-magnetic class="rounded-xl border border-zinc-700 px-7 py-4 text-center font-semibold text-white transition-all duration-300 hover:scale-[1.02] hover:border-zinc-500 hover:bg-zinc-800">
-          View Psychology Today profile
-        </a>
-      </div>
-    </div>
-
-    <div class="grid gap-4 sm:grid-cols-2 lg:col-span-5 lg:grid-cols-1">
-      <div class="rounded-2xl bg-zinc-800/60 p-6 backdrop-blur-sm sm:p-8">
-        <h3 class="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-400">Schedule &amp; availability</h3>
-        <dl class="mt-4 space-y-3">
-          {hours.map((slot) => (
-            <div class="flex flex-wrap justify-between gap-x-6 gap-y-1">
-              <dt class="text-zinc-300">{slot.days}</dt>
-              <dd class="font-medium text-white">{slot.time}</dd>
-            </div>
-          ))}
-        </dl>
-      </div>
-      <div class="rounded-2xl bg-zinc-800/60 p-6 backdrop-blur-sm sm:p-8">
-        <h3 class="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-400">Contact</h3>
-        <a href={phone.href} class="mt-4 block font-display text-2xl font-medium text-white transition-colors duration-300 hover:text-rose-300">
-          {phone.label}
-        </a>
-        <a href={`mailto:${email}`} class="mt-2 block break-all text-zinc-300 transition-colors duration-300 hover:text-rose-300">
-          {email}
-        </a>
-      </div>
+<section class={`${container} py-10 sm:py-14`} aria-labelledby="contact-heading">
+  <div class="rounded-2xl border-2 border-line bg-tint-strong p-6 sm:p-12">
+    <h2 id="contact-heading" class={h2}>When you are ready, we are here.</h2>
+    <p class="mt-4 max-w-[65ch] text-lg leading-relaxed text-body">Send a message, call, or email. Choose whichever feels easiest.</p>
+    <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+      <a href="/contact" class={buttonPrimary}>Let's Connect</a>
+      <a href={phone.href} class={buttonSecondary}>Call {phone.label}</a>
     </div>
   </div>
 </section>

@@ -1,0 +1,114 @@
+---
+import { container } from "../data/site";
+
+// "standard" is always the default: nothing saved, nothing set on <html>.
+const groups = [
+  {
+    pref: "text",
+    legend: "Text size",
+    options: [
+      { value: "standard", label: "Standard" },
+      { value: "large", label: "Large" },
+      { value: "larger", label: "Larger" },
+    ],
+  },
+  {
+    pref: "spacing",
+    legend: "Spacing between letters and lines",
+    options: [
+      { value: "standard", label: "Standard" },
+      { value: "wide", label: "Wide" },
+    ],
+  },
+  {
+    pref: "theme",
+    legend: "Colours",
+    options: [
+      { value: "standard", label: "Match my device" },
+      { value: "light", label: "Light" },
+      { value: "dark", label: "Dark" },
+    ],
+  },
+];
+---
+
+<div class="js-only border-b border-line bg-tint">
+  <details class={`${container} group`}>
+    <summary class="flex min-h-12 cursor-pointer list-none items-center justify-end gap-2 text-base font-bold text-ink [&::-webkit-details-marker]:hidden">
+      <svg viewBox="0 0 24 24" class="size-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M4 7V5h12v2M10 5v14M8 19h4M15 13v-1.5h6V13M18 11.5V19M16.5 19h3" />
+      </svg>
+      <span class="underline decoration-2 underline-offset-4">Reading settings</span>
+      <span class="group-open:hidden" aria-hidden="true">+</span>
+      <span class="hidden group-open:inline" aria-hidden="true">&minus;</span>
+    </summary>
+
+    <div class="grid gap-6 pb-6 pt-2 md:grid-cols-3">
+      {groups.map((group) => (
+        <fieldset>
+          <legend class="text-base font-bold text-ink">{group.legend}</legend>
+          <div class="mt-3 flex flex-wrap gap-2">
+            {group.options.map((option) => (
+              <button
+                type="button"
+                data-pref={group.pref}
+                data-value={option.value}
+                aria-pressed="false"
+                class="min-h-12 rounded-xl border-2 border-ink bg-surface px-5 text-base font-bold text-ink transition-colors duration-300 hover:bg-tint-strong aria-pressed:bg-ink aria-pressed:text-page"
+              >
+                {option.label}
+              </button>
+            ))}
+          </div>
+        </fieldset>
+      ))}
+      <p class="text-base text-body md:col-span-3">Your choices are saved on this device.</p>
+    </div>
+  </details>
+</div>
+
+<script>
+  const root = document.documentElement;
+  const buttons = document.querySelectorAll<HTMLButtonElement>("[data-pref]");
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
+  // Kept in memory as well, so the buttons still work when storage is blocked.
+  const chosen: Record<string, string> = {};
+
+  function load(pref: string) {
+    try {
+      return localStorage.getItem(`hah-${pref}`) ?? "standard";
+    } catch {
+      return "standard";
+    }
+  }
+
+  // Mirrors the inline script in Layout.astro: "standard" removes the attribute, and for colours follows the device.
+  function apply(pref: string) {
+    let value = chosen[pref];
+    if (pref === "theme") value = value === "dark" || (value === "standard" && prefersDark.matches) ? "dark" : "standard";
+    if (value === "standard") delete root.dataset[pref];
+    else root.dataset[pref] = value;
+  }
+
+  function sync() {
+    buttons.forEach((button) => {
+      button.setAttribute("aria-pressed", String(chosen[button.dataset.pref!] === button.dataset.value));
+    });
+  }
+
+  buttons.forEach((button) => {
+    const pref = button.dataset.pref!;
+    chosen[pref] ??= load(pref);
+    button.addEventListener("click", () => {
+      chosen[pref] = button.dataset.value!;
+      try {
+        localStorage.setItem(`hah-${pref}`, chosen[pref]);
+      } catch {}
+      apply(pref);
+      sync();
+    });
+  });
+
+  prefersDark.addEventListener("change", () => apply("theme"));
+  sync();
+</script>

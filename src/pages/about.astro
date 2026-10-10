@@ -1,19 +1,23 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
 import PageHero from "../components/PageHero.astro";
+import CheckList from "../components/CheckList.astro";
+import Portrait from "../components/Portrait.astro";
 import ContactCta from "../components/ContactCta.astro";
-import { card, eyebrow, parallaxImage, photo } from "../data/site";
+import { card, container, h2, languages, prose } from "../data/site";
 
-const languages = ["English", "Hindi", "Gujarati"];
+const glance = [
+  { label: "Qualifications", value: "BSW, MSW, RSW", note: "Registered Social Worker" },
+  { label: "Experience", value: "12+ years", note: "in the social work field" },
+  { label: "Languages", value: languages.join(", "), note: "Choose the one you are most comfortable in" },
+];
 
 const supported = [
-  { title: "Children", layout: "lg:col-span-2", tone: "bg-white border border-zinc-200" },
-  { title: "Families", layout: "lg:col-span-2", tone: "bg-sage-100" },
-  { title: "Indigenous communities", layout: "lg:col-span-2", tone: "bg-white border border-zinc-200" },
-  { title: "Individuals with disabilities", layout: "lg:col-span-3", tone: "bg-rose-50" },
-  { title: "People navigating mental health and life challenges", layout: "sm:col-span-2 lg:col-span-3", tone: "bg-white border border-zinc-200" },
+  "Children",
+  "Families",
+  "Indigenous communities",
+  "Individuals with disabilities",
+  "People navigating mental health and life challenges",
 ];
 ---
 
@@ -21,108 +25,51 @@ const supported = [
   title="About Kunjal Bhatt, RSW — Hope at Home Counselling Services"
   description="Meet Kunjal Bhatt, BSW, MSW, RSW — a registered social worker with over 12 years of experience, offering counselling in English, Hindi and Gujarati."
 >
-  <Header />
+  <PageHero eyebrow="The heart behind Hope at Home" title="Hi, I'm Kunjal." />
 
-  <main class="mx-auto max-w-7xl px-5 sm:px-8">
-    <PageHero eyebrow="About us" title="The heart behind Hope at Home." watermark="story" />
-
-    <!-- Story -->
-    <section class="grid lg:grid-cols-12 lg:grid-rows-[auto_1fr]" aria-labelledby="story-heading">
-      <div class="reveal aspect-video overflow-hidden rounded-2xl lg:col-start-1 lg:col-end-9 lg:row-start-1">
-        <!-- Placeholder: replace with Kunjal's portrait -->
-        <img
-          src={photo("1518531933037-91b2f5f229cc", 1400)}
-          alt="Deep green leaves"
-          data-parallax="0.06"
-          class={parallaxImage}
-          fetchpriority="high"
-        />
-      </div>
-
-      <div class="reveal relative z-10 mx-4 -mt-12 rounded-2xl bg-white p-8 shadow-xl sm:p-12 lg:col-start-6 lg:col-end-13 lg:row-start-1 lg:row-end-3 lg:mx-0 lg:mt-40 lg:p-16">
-        <h2 id="story-heading" class="font-display text-4xl font-medium tracking-tight text-zinc-900 sm:text-6xl">Hi, I'm Kunjal.</h2>
-        <div class="mt-8 space-y-5 text-lg leading-relaxed">
-          <p>I'm a BSW, MSW, RSW with over 12 years of experience in the social work field.</p>
-          <p>
-            Over the years, I've supported children, families, Indigenous communities, individuals with disabilities, and people navigating
-            mental health and life challenges. These experiences have taught me that everyone's story is different — and so is the support
-            they need.
-          </p>
-          <p>
-            Outside of work, I'm a wife and mom to two growing minds, so I understand that life can be busy, messy, and sometimes
-            overwhelming.
-          </p>
-          <p>
-            I speak English, Hindi, and Gujarati, and I love creating a space where you can simply be yourself, feel heard, and take things
-            one step at a time.
-          </p>
+  <!-- At a glance: the key facts first, for anyone who only reads the top of the page -->
+  <section class={`${container} py-6`} aria-labelledby="glance-heading">
+    <h2 id="glance-heading" class="sr-only">At a glance</h2>
+    <dl class="grid gap-4 md:grid-cols-3">
+      {glance.map((item) => (
+        <div class="rounded-2xl bg-tint p-6">
+          <dt class="text-base font-bold text-brand">{item.label}</dt>
+          <dd class="mt-2 font-display text-2xl font-semibold leading-snug text-ink">{item.value}</dd>
+          <dd class="mt-1 text-base text-body">{item.note}</dd>
         </div>
-      </div>
+      ))}
+    </dl>
+  </section>
 
-      <p class="reveal mt-10 font-display text-3xl italic leading-snug text-sage-700 lg:col-start-1 lg:col-end-6 lg:row-start-2 lg:mt-12 lg:pr-16 lg:text-4xl">
-        No judgment. No pressure. Just a safe place to start.
-      </p>
-    </section>
-
-    <!-- At a glance -->
-    <section class="mt-24 grid gap-4 sm:grid-cols-2 sm:gap-5 lg:mt-32 lg:grid-cols-12" aria-label="At a glance">
-      <div class={`${card} bg-zinc-900 p-8 text-white sm:p-10 lg:col-span-4`}>
-        <p class="font-display text-4xl font-medium">BSW · MSW · RSW</p>
-        <p class="mt-3 text-sm leading-relaxed text-zinc-300">Registered Social Worker</p>
+  <!-- Story -->
+  <section class={`${container} py-10 sm:py-14`} aria-labelledby="story-heading">
+    <div class="grid items-start gap-10 md:grid-cols-[minmax(0,1fr)_18rem] lg:gap-14">
+      <Portrait loading="eager" class="mx-auto md:order-last md:mx-0" />
+      <div>
+        <h2 id="story-heading" class={h2}>My story</h2>
+        <div class={`${prose} mt-6`}>
+          <p>I'm a BSW, MSW, RSW with over 12 years of experience in the social work field.</p>
+          <p>These years have taught me that everyone's story is different — and so is the support they need.</p>
+          <p>Outside of work, I'm a wife and mom to two growing minds. So I understand that life can be busy, messy, and sometimes overwhelming.</p>
+          <p>I speak English, Hindi, and Gujarati.</p>
+          <p>I love creating a space where you can simply be yourself, feel heard, and take things one step at a time.</p>
+        </div>
+        <p class="mt-8 max-w-[65ch] rounded-2xl border-l-8 border-accent bg-surface p-6 text-xl font-bold leading-snug text-ink">
+          No judgment. No pressure. Just a safe place to start.
+        </p>
       </div>
-      <div class={`${card} border border-rose-100 bg-rose-50 p-8 sm:p-10 lg:col-span-3 lg:translate-y-8`}>
-        <p class="font-display text-5xl font-medium text-zinc-900">12+</p>
-        <p class="mt-3 text-sm leading-relaxed text-zinc-600">years of experience in social work</p>
-      </div>
-      <div class={`${card} bg-sage-200 p-8 sm:col-span-2 sm:p-10 lg:col-span-5`}>
-        <p class="text-xs font-semibold uppercase tracking-[0.2em] text-sage-800">Counselling offered in</p>
-        <ul class="mt-5 flex flex-wrap gap-3">
-          {languages.map((language) => (
-            <li class="rounded-xl bg-white/70 px-5 py-2.5 font-display text-xl font-medium text-zinc-900">{language}</li>
-          ))}
-        </ul>
-      </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Experience -->
-    <section class="py-24 sm:py-32" aria-labelledby="experience-heading">
-      <div class="reveal">
-        <p class={eyebrow}>Experience</p>
-        <h2 id="experience-heading" class="mt-4 max-w-2xl font-display text-4xl font-medium tracking-tight text-zinc-900 sm:text-5xl">
-          Over the years, I've supported
-        </h2>
+  <!-- Experience -->
+  <section class={`${container} py-10 sm:py-14`} aria-labelledby="experience-heading">
+    <div class={card}>
+      <h2 id="experience-heading" class={h2}>Who I have supported</h2>
+      <div class="mt-6">
+        <CheckList items={supported} />
       </div>
-      <ul class="mt-12 grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-6">
-        {supported.map((group) => (
-          <li class:list={[card, group.layout, group.tone, "flex min-h-40 items-end p-8"]}>
-            <span class="font-display text-2xl font-medium leading-snug text-zinc-900">{group.title}</span>
-          </li>
-        ))}
-      </ul>
-    </section>
+    </div>
+  </section>
 
-    <!-- Belief -->
-    <section class="relative mb-24 lg:mb-32">
-      <div class="reveal aspect-video overflow-hidden rounded-2xl sm:aspect-[21/9] lg:ml-[18%]">
-        <img
-          src={photo("1524758631624-e2822e304c36", 1600, "21:9")}
-          alt="A bright, open room with soft chairs"
-          loading="lazy"
-          data-parallax="0.06"
-          class={parallaxImage}
-        />
-      </div>
-      <figure class="reveal relative z-10 mx-4 -mt-12 rounded-2xl bg-sage-100 p-8 shadow-xl sm:p-12 lg:mx-0 lg:-mt-44 lg:max-w-3xl lg:p-16">
-        <blockquote class="font-display text-3xl font-medium leading-snug tracking-tight text-zinc-900 sm:text-5xl sm:leading-tight">
-          Everyone's story is different —{" "}
-          <span class="italic text-sage-700">and so is the support they need.</span>
-        </blockquote>
-        <figcaption class="mt-8 text-sm font-semibold text-zinc-900">Kunjal Bhatt, RSW</figcaption>
-      </figure>
-    </section>
-
-    <ContactCta />
-  </main>
-
-  <Footer />
+  <ContactCta />
 </Layout>

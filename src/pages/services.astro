@@ -1,27 +1,37 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
 import PageHero from "../components/PageHero.astro";
 import ContactCta from "../components/ContactCta.astro";
+import Faq from "../components/Faq.astro";
 import { areas } from "../data/areas";
-import { card, eyebrow, services } from "../data/site";
+import { card, container, eyebrow, h2, h3, services, textLink } from "../data/site";
 
 const coverage = [
   {
     title: "Major insurance providers",
     body: "Our services are eligible for coverage through many major insurance providers, making it easier to use your benefits.",
-    // TODO: link to the list of insurers once the client supplies it.
-    link: { label: "Ask about your provider", href: "/contact" },
+    link: { label: "See the list of insurers", href: "/services/insurance" },
   },
   {
     title: "Provider not listed?",
-    body: "If your insurance provider is not currently listed with us, please reach out — we'll do our best to support you with the registration process where possible.",
+    body: "Please reach out. We'll do our best to support you with the registration process where possible.",
     link: { label: "Reach out", href: "/contact" },
   },
+];
+
+// Programs that pay for counselling directly. Wording and links are from the client's email (October 2026).
+const programs = [
   {
     title: "Non-Insured Health Benefits (NIHB)",
-    body: "We are also registered with the NIHB program, which provides coverage for eligible registered First Nations people and recognized Inuit.",
+    who: "For eligible registered First Nations people and recognized Inuit",
+    body: "We are registered with the NIHB program, which provides coverage for eligible registered First Nations people and recognized Inuit.",
+    link: { label: "Read about the NIHB program", href: "https://www.sac-isc.gc.ca/eng/1572537161086/1572537234517" },
+  },
+  {
+    title: "Victim Quick Response Program+ (VQRP+)",
+    who: "For victims of violent crime in Ontario",
+    body: "We are an approved VQRP+ service provider. We proudly support victims of violent crime in Ontario with funded short-term counselling and emergency support services, billed directly to the program.",
+    link: { label: "Read about the VQRP+ program", href: "https://www.cleo.on.ca/en/publications/the-victim-quick-response-program" },
   },
 ];
 ---
@@ -30,93 +40,83 @@ const coverage = [
   title="Services & Fees — Hope at Home Counselling Services"
   description="Child and youth, individual and couples counselling in 50-minute sessions from $120. Eligible for coverage through many major insurance providers and the NIHB program."
 >
-  <Header />
+  <PageHero eyebrow="Services and fees" title="Care for every chapter." lead="Your time. Your space. Every session is 50 minutes." />
 
-  <main class="mx-auto max-w-7xl px-5 sm:px-8">
-    <PageHero
-      eyebrow="Services & fees"
-      title="Care for every chapter."
-      lead="Your time. Your space. Every session is 50 minutes."
-      watermark="care"
-    />
-
-    <!-- Services -->
-    <section class="grid gap-4 sm:gap-5 md:grid-cols-3" aria-label="Counselling services">
-      {services.map((service, i) => (
-        <article class:list={[card, "group flex flex-col overflow-hidden border border-zinc-200 bg-white", i === 1 && "md:translate-y-10"]}>
-          <div class="aspect-video overflow-hidden">
-            <img src={service.image} alt={service.alt} class="size-full object-cover transition-transform duration-700 group-hover:scale-105" />
-          </div>
-          <div class="flex flex-1 flex-col p-8 sm:p-10">
-            <h2 class="font-display text-3xl font-medium leading-snug text-zinc-900">{service.title}</h2>
-            <p class="mt-3 font-display text-lg italic text-sage-700">{service.tagline}</p>
-            <p class="mt-5 leading-relaxed">{service.blurb}</p>
-            <p class="mt-auto pt-12">
-              <span class="font-display text-6xl font-medium text-zinc-900">${service.price}</span>
-              <span class="ml-1 text-sm text-zinc-500">/ 50 min</span>
-            </p>
-            <a href="/contact" data-magnetic class="mt-8 rounded-xl bg-zinc-900 px-6 py-3.5 text-center text-sm font-semibold text-white transition-all duration-300 hover:bg-rose-600">
-              Let's Connect
-            </a>
-          </div>
-        </article>
-      ))}
-    </section>
-
-    <!-- Areas of care -->
-    <section class="py-24 sm:py-32 md:pt-40" aria-labelledby="areas-heading">
-      <div class="reveal">
-        <p class={eyebrow}>Our areas of care</p>
-        <h2 id="areas-heading" class="mt-4 max-w-2xl font-display text-4xl font-medium tracking-tight text-zinc-900 sm:text-5xl">
-          What we can work through together.
-        </h2>
-      </div>
-      <div class="mt-12 grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4">
-        {areas.map((area, i) => (
-          <a href={area.href} class:list={[card, "group flex min-h-56 flex-col p-8", i % 2 === 0 ? "bg-sage-100" : "bg-rose-50"]}>
-            <h3 class="font-display text-2xl font-medium text-zinc-900">{area.title}</h3>
-            <p class="mt-3 font-display italic text-sage-700">{area.closing}</p>
-            <span class="mt-auto inline-flex items-center gap-2 pt-8 text-sm font-semibold text-zinc-900">
-              Learn more
-              <span class="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">&rarr;</span>
-            </span>
-          </a>
-        ))}
-      </div>
-    </section>
-
-    <!-- Insurance & coverage -->
-    <section id="insurance" class="mb-24 grid scroll-mt-28 gap-4 sm:mb-32 sm:gap-5 lg:grid-cols-12" aria-labelledby="insurance-heading">
-      <div class="reveal flex flex-col justify-between rounded-2xl bg-sage-200 p-8 sm:p-12 lg:col-span-5 lg:p-16">
-        <p class="text-xs font-semibold uppercase tracking-[0.2em] text-sage-800">Insurance &amp; coverage</p>
-        <div class="mt-16">
-          <h2 id="insurance-heading" class="font-display text-4xl font-medium leading-tight tracking-tight text-zinc-900 sm:text-5xl">
-            We make accessing counselling as simple as possible.
-          </h2>
-          <p class="mt-8 text-sm leading-relaxed text-sage-900">
-            Coverage varies by plan. We recommend checking with your insurance provider to confirm your individual benefits.
+  <!-- Services -->
+  <section class={`${container} py-6 sm:py-10`} aria-label="Counselling services">
+    <ul class="grid gap-4 md:grid-cols-3">
+      {services.map((service) => (
+        <li class="sticky-note flex flex-col p-6 pb-12 sm:p-8 sm:pb-14">
+          <h2 class="font-display text-2xl font-semibold leading-snug">{service.title}</h2>
+          <p class="mt-2 text-lg font-bold">{service.tagline}</p>
+          <p class="mt-4 text-lg leading-relaxed">{service.blurb}</p>
+          <p class="mt-auto pt-6 font-display text-5xl font-semibold">
+            ${service.price} <span class="mt-1 block font-sans text-base font-normal">for 50 minutes</span>
           </p>
-        </div>
-      </div>
+        </li>
+      ))}
+    </ul>
+  </section>
 
-      <div class="grid gap-4 sm:gap-5 lg:col-span-7">
-        {coverage.map((item) => (
-          <div class={`${card} border border-zinc-200 bg-white p-8 sm:p-10`}>
-            <h3 class="font-display text-2xl font-medium text-zinc-900">{item.title}</h3>
-            <p class="mt-3 leading-relaxed">{item.body}</p>
-            {item.link && (
-              <a href={item.link.href} class="link-redraw group mt-5 inline-flex items-center gap-2 text-sm font-semibold text-zinc-900 transition-colors duration-300 hover:text-rose-600">
-                {item.link.label}
-                <span class="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">&rarr;</span>
-              </a>
-            )}
-          </div>
-        ))}
-      </div>
-    </section>
+  <!-- Insurance & coverage -->
+  <section id="insurance" class={`${container} py-10 sm:py-14`} aria-labelledby="insurance-heading">
+    <p class={eyebrow}>Insurance and coverage</p>
+    <h2 id="insurance-heading" class={`${h2} mt-2 max-w-3xl`}>We make accessing counselling as simple as possible.</h2>
 
-    <ContactCta />
-  </main>
+    <ul class="mt-8 grid gap-4 md:grid-cols-2">
+      {coverage.map((item) => (
+        <li class={card}>
+          <h3 class={h3}>{item.title}</h3>
+          <p class="mt-3 max-w-[65ch] text-lg leading-relaxed text-body">{item.body}</p>
+          {item.link && (
+            <a href={item.link.href} class={`${textLink} mt-4 inline-flex min-h-11 items-center gap-2`}>
+              {item.link.label} <span aria-hidden="true">&rarr;</span>
+            </a>
+          )}
+        </li>
+      ))}
+    </ul>
 
-  <Footer />
+    <p class="mt-6 max-w-[65ch] rounded-2xl bg-tint p-6 text-lg leading-relaxed text-body">
+      <strong class="text-ink">Please check first.</strong> Coverage varies by plan. We recommend checking with your insurance provider to
+      confirm your individual benefits.
+    </p>
+  </section>
+
+  <!-- Funded programs -->
+  <section id="programs" class={`${container} scroll-mt-8 py-10 sm:py-14`} aria-labelledby="programs-heading">
+    <p class={eyebrow}>Funded programs</p>
+    <h2 id="programs-heading" class={`${h2} mt-2 max-w-3xl`}>Two programs that can cover the cost for you.</h2>
+
+    <ul class="mt-8 grid gap-4 md:grid-cols-2">
+      {programs.map((program) => (
+        <li class={`${card} flex flex-col`}>
+          <h3 class={h3}>{program.title}</h3>
+          <p class="mt-2 text-lg font-bold text-brand">{program.who}</p>
+          <p class="mt-3 max-w-[65ch] text-lg leading-relaxed text-body">{program.body}</p>
+          <a href={program.link.href} target="_blank" rel="noopener noreferrer" class={`${textLink} mt-auto inline-flex min-h-11 items-center gap-2 pt-4`}>
+            {program.link.label} (opens in a new tab)
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <Faq />
+
+  <!-- Areas of care -->
+  <nav class={`${container} py-6`} aria-labelledby="areas-heading">
+    <h2 id="areas-heading" class={h2}>What we can work through together</h2>
+    <ul class="mt-4">
+      {areas.map((area) => (
+        <li>
+          <a href={area.href} class={`${textLink} inline-flex min-h-12 items-center gap-2`}>
+            {area.title} <span aria-hidden="true">&rarr;</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+
+  <ContactCta />
 </Layout>

@@ -2,7 +2,7 @@
 export const nav = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/about" },
-  { label: "Niche", href: "/areas-of-care" },
+  { label: "Areas of Care", href: "/areas-of-care" },
   { label: "Services", href: "/services" },
   { label: "Contact Us", href: "/contact" },
 ];
@@ -10,20 +10,22 @@ export const nav = [
 export const phone = { label: "519-701-5740", href: "tel:+15197015740" };
 export const email = "therapistkunjalbhatt@gmail.com";
 
+// Contact form messages are delivered by FormSubmit (formsubmit.co) to this inbox.
+// TODO: temporary developer inbox — replace with the client's address before launch.
+// The first message sent to a new address triggers a one-time activation email that must be confirmed.
+export const formRecipient = "rhtrivedi92@outlook.com";
+export const formEndpoint = `https://formsubmit.co/${formRecipient}`;
+export const formAjaxEndpoint = `https://formsubmit.co/ajax/${formRecipient}`;
+
 // TODO: replace with Kunjal's Psychology Today profile URL.
 export const psychologyTodayUrl = "https://www.psychologytoday.com/ca";
 
 export const hours = [
-  { days: "Monday – Friday", time: "9:00 AM – 9:00 PM" },
-  { days: "Saturday", time: "9:00 AM – 5:00 PM" },
+  { days: "Monday to Friday", time: "9:00 AM to 9:00 PM" },
+  { days: "Saturday", time: "9:00 AM to 5:00 PM" },
 ];
 
-// Unsplash placeholders — swap for the client's own photography before launch.
-// Every image on the site is cropped wide: 16:9 by default, 21:9 for cinematic banners.
-const ratios = { "16:9": 9 / 16, "21:9": 9 / 21 };
-
-export const photo = (id: string, width: number, ratio: keyof typeof ratios = "16:9") =>
-  `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${width}&h=${Math.round(width * ratios[ratio])}&q=75`;
+export const languages = ["English", "Hindi", "Gujarati"];
 
 export const services = [
   {
@@ -31,28 +33,38 @@ export const services = [
     tagline: "Little hearts need support too",
     price: 120,
     blurb: "A gentle space for children and teens to feel heard and take things one step at a time.",
-    image: photo("1531983412531-1f49a365ffed", 960),
-    alt: "A parent holding a smiling child by the sea",
   },
   {
     title: "Individual Counselling",
     tagline: "A space just for you",
     price: 150,
     blurb: "One-to-one support to explore your feelings, build coping tools, and find your way forward.",
-    image: photo("1506126613408-eca07ce68773", 960),
-    alt: "A person sitting calmly, looking out over trees at sunrise",
   },
   {
     title: "Couples Counselling",
     tagline: "Reconnect, one conversation at a time",
     price: 180,
     blurb: "A warm space to communicate openly, understand each other better, and work through challenges together.",
-    image: photo("1474552226712-ac0f0961a954", 960),
-    alt: "A couple holding hands at sunset",
   },
 ];
 
-// Shared class strings.
-export const card = "reveal rounded-2xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg";
-export const eyebrow = "text-xs font-semibold uppercase tracking-[0.2em] text-rose-600";
-export const parallaxImage = "size-full scale-[1.2] object-cover";
+// Shared class strings. Nothing here moves, scales or animates in: hover and focus only change colour, border or shadow.
+export const container = "mx-auto w-full max-w-5xl px-5 sm:px-8";
+export const eyebrow = "text-base font-bold text-brand";
+export const h1 = "font-display text-5xl font-semibold leading-[1.1] tracking-tight text-ink sm:text-6xl";
+export const h2 = "font-display text-3xl font-semibold leading-tight tracking-tight text-ink sm:text-4xl";
+export const h3 = "font-display text-2xl font-semibold leading-snug text-ink";
+// Prices, phone numbers and other figures shown large.
+export const figure = "font-display font-semibold text-ink";
+// Short lines (about 65 characters) and short paragraphs are easier to keep your place in.
+export const prose = "max-w-[65ch] space-y-4 text-lg leading-relaxed text-body";
+
+const button =
+  "inline-flex min-h-14 items-center justify-center gap-2 rounded-xl border-2 border-ink px-7 py-3 text-center text-lg font-bold transition-all duration-300 hover:shadow-lg";
+export const buttonPrimary = `${button} bg-accent text-on-accent hover:bg-accent-strong`;
+export const buttonSecondary = `${button} bg-surface text-ink hover:bg-tint`;
+
+export const card = "rounded-2xl border-2 border-line bg-surface p-6 sm:p-8";
+export const cardLink = `${card} group flex flex-col transition-all duration-300 hover:border-ink hover:shadow-lg`;
+export const textLink =
+  "rounded font-bold text-ink underline decoration-2 underline-offset-4 transition-colors duration-300 hover:bg-accent hover:text-on-accent";

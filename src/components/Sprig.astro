@@ -1,0 +1,27 @@
+---
+// A still line-drawn sprig, after the botanical sketch in the client's deck. Decorative only.
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<svg
+  viewBox="0 0 120 120"
+  class:list={["shrink-0", className]}
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+>
+  <path d="M18 112C38 88 62 58 100 10" />
+  <path d="M34 93C18 92 10 82 10 70c14 2 23 10 24 23z" />
+  <path d="M44 80c10-10 24-6 32 6-14 4-26 2-32-6z" />
+  <path d="M56 64C40 62 33 52 34 40c13 3 21 11 22 24z" />
+  <path d="M66 50c10-9 24-5 31 7-13 4-25 1-31-7z" />
+  <path d="M78 34C64 32 58 22 60 11c11 3 17 11 18 23z" />
+  <path d="M88 24c2-10 8-16 18-18 0 10-6 17-18 18z" />
+</svg>

@@ -1,106 +1,149 @@
 @import "tailwindcss";
 
-@theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Fraunces", ui-serif, Georgia, serif;
+/* Colours are named by job, not by shade, so the light and dark themes share every class.
+   Use bg-page, bg-surface, text-ink, text-body… in markup; never a raw palette colour. */
+@theme inline {
+  /* Body: Atkinson Hyperlegible is drawn so similar letters (I, l, 1 / b, d) are easy to tell apart.
+     Headings and large numbers: Fraunces, softened, for warmth at sizes where it stays easy to read. */
+  --font-sans: "Atkinson Hyperlegible Next Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces Variable", ui-serif, Georgia, serif;
 
-  /* Brand tint taken from the client's deck — muted surfaces only, never as an accent. */
-  --color-sage-50: #f4f7f3;
-  --color-sage-100: #e7eee5;
-  --color-sage-200: #d0dccd;
-  --color-sage-300: #b7c8b5;
-  --color-sage-400: #98b095;
-  --color-sage-500: #6f8f6c;
-  --color-sage-600: #5b7658;
-  --color-sage-700: #4b6349;
-  --color-sage-800: #3a4d39;
-  --color-sage-900: #2a382a;
-
-  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+  --color-page: var(--page);
+  --color-surface: var(--surface);
+  --color-tint: var(--tint);
+  --color-tint-strong: var(--tint-strong);
+  --color-ink: var(--ink);
+  --color-body: var(--body);
+  --color-line: var(--line);
+  --color-field: var(--field);
+  --color-brand: var(--brand);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-on-accent: var(--on-accent);
+  --color-deep: var(--deep);
+  --color-on-deep: var(--on-deep);
+  --color-logo-tile: var(--logo-tile);
 }
 
-html {
-  scroll-behavior: smooth;
+/* Light: the sage green and pink of the client's deck, on a soft off-white (never pure white behind text). */
+:root {
+  color-scheme: light;
+  --page: #f5f6f1;
+  --surface: #fffefb;
+  --tint: #e7eee5;
+  --tint-strong: #d0dccd;
+  --ink: #18181b;
+  --body: #3f3f46;
+  --line: #d4d4d8;
+  --field: #52525b;
+  --brand: #4b6349;
+  --accent: #fbb4c9;
+  --accent-strong: #f78fb0;
+  --on-accent: #18181b;
+  --deep: #26332a;
+  --on-deep: #f1f5ef;
+  /* Behind insurer logos, which are drawn for a light background. Stays light in the dark theme, just softer. */
+  --logo-tile: #ffffff;
 }
 
-/* Scroll reveal — toggled by the IntersectionObserver in Layout.astro.
-   Content stays visible when the script is off or fails, or reduced motion is requested. */
-@media (prefers-reduced-motion: no-preference) {
-  .reveal-ready .reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    /* Hover properties are listed so cards keep their micro-interactions. */
-    transition:
-      opacity 0.9s var(--ease-out-expo) var(--reveal-delay, 0ms),
-      transform 0.9s var(--ease-out-expo) var(--reveal-delay, 0ms),
-      scale 0.3s ease,
-      box-shadow 0.3s ease,
-      background-color 0.3s ease,
-      border-color 0.3s ease,
-      color 0.3s ease;
-  }
+/* Dark: low-glare, for light sensitivity and night reading. Set by the inline script in Layout.astro. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #171a18;
+  --surface: #222724;
+  --tint: #29322b;
+  --tint-strong: #344036;
+  --ink: #f4f4f5;
+  --body: #d4d4d8;
+  --line: #474e49;
+  --field: #a1a1aa;
+  --brand: #b7c8b5;
+  --accent: #f9a8c1;
+  --accent-strong: #fcc5d6;
+  --deep: #0f1210;
+  --logo-tile: #e3e7e1;
+}
 
-  .reveal-ready .reveal.active {
-    opacity: 1;
-    transform: none;
-  }
+.font-display {
+  font-variation-settings: "SOFT" 100;
+}
 
-  [data-parallax] {
-    will-change: transform;
+/* The logo is black line art with pink hearts: flip it to light lines and keep the hearts pink. */
+:root[data-theme="dark"] .logo {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+/* Reading settings (see ReadingSettings.astro). Sizes are in rem, so the whole page scales together. */
+html[data-text="large"] {
+  font-size: 112.5%;
+}
+
+html[data-text="larger"] {
+  font-size: 125%;
+}
+
+html[data-spacing="wide"] body {
+  letter-spacing: 0.04em;
+  word-spacing: 0.14em;
+}
+
+html[data-spacing="wide"] :where(p, li, dt, dd, label, legend, input, select, textarea) {
+  line-height: 2;
+}
+
+/* The settings bar needs JavaScript, so it only shows once the inline script in Layout.astro has run. */
+html:not(.js) .js-only {
+  display: none;
+}
+
+/* One strong, consistent focus ring everywhere, so keyboard users never lose their place. */
+:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.on-deep :focus-visible {
+  outline-color: var(--on-deep);
+}
+
+/* Hover states only change colour, border and shadow. Remove even those when less motion is requested. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
-/* Underline that draws in from the left and leaves to the right. */
-.link-draw,
-.link-redraw {
-  padding-bottom: 0.4rem;
-  background-image: linear-gradient(var(--color-rose-500), var(--color-rose-500));
-  background-repeat: no-repeat;
+/* The fee cards are the pink sticky notes from the client's deck: dark outline, folded bottom-right corner.
+   Text on a note is always dark (text-on-accent), in both themes. */
+.sticky-note {
+  --fold: 2.75rem;
+  position: relative;
+  border: 2px solid var(--ink);
+  border-radius: 1rem;
+  background: var(--accent);
+  color: var(--on-accent);
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--fold)), calc(100% - var(--fold)) 100%, 0 100%);
 }
 
-.link-draw {
-  background-position: 100% 100%;
-  background-size: 0 2px;
-  transition:
-    background-size 0.45s var(--ease-out-expo),
-    color 0.3s ease;
-}
-
-.link-draw:hover,
-.link-draw:focus-visible,
-.link-draw[aria-current="page"] {
-  background-position: 0 100%;
-  background-size: 100% 2px;
-}
-
-/* Underline that is always there, and wipes out then back in on hover. */
-.link-redraw {
-  background-position: 0 100%;
-  background-size: 100% 2px;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .link-redraw:hover,
-  .link-redraw:focus-visible {
-    animation: underline-redraw 0.8s var(--ease-out-expo) both;
-  }
-}
-
-@keyframes underline-redraw {
-  0% {
-    background-position: 100% 100%;
-    background-size: 100% 2px;
-  }
-  45% {
-    background-position: 100% 100%;
-    background-size: 0 2px;
-  }
-  55% {
-    background-position: 0 100%;
-    background-size: 0 2px;
-  }
-  100% {
-    background-position: 0 100%;
-    background-size: 100% 2px;
-  }
+.sticky-note::after {
+  content: "";
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: var(--fold);
+  height: var(--fold);
+  border-top: 2px solid var(--ink);
+  border-left: 2px solid var(--ink);
+  border-top-left-radius: 0.5rem;
+  background: linear-gradient(
+    135deg,
+    var(--accent-strong) calc(50% - 1px),
+    var(--ink) calc(50% - 1px),
+    var(--ink) calc(50% + 1px),
+    transparent calc(50% + 1px)
+  );
 }

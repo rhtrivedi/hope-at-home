@@ -1,19 +1,60 @@
 ---
-import { nav } from "../data/site";
+import { container, email, hours, nav, phone, textLink } from "../data/site";
+
+const heading = "font-display text-xl font-semibold text-on-deep";
+const footerLink =
+  "inline-flex min-h-11 items-center rounded font-semibold text-on-deep underline decoration-2 underline-offset-4 transition-colors duration-300 hover:bg-on-deep hover:text-deep";
 ---
 
-<footer class="mx-auto max-w-7xl px-5 pb-12 pt-20 sm:px-8">
-  <div class="flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
-    <a href="/" class="reveal inline-block" aria-label="Hope at Home Counselling Services — home">
-      <img src="/images/logo-mark.png" alt="" width="974" height="480" loading="lazy" class="h-24 w-auto sm:h-28" />
-      <img src="/images/logo-wordmark.png" alt="" width="826" height="200" loading="lazy" class="mt-2 h-10 w-auto sm:h-12" />
-      <span class="mt-3 block text-[0.65rem] font-medium uppercase tracking-[0.3em] text-zinc-500">Counselling Services</span>
-    </a>
-    <nav class="flex flex-wrap gap-x-6 gap-y-2 text-sm text-zinc-500" aria-label="Footer">
-      {nav.map((item) => (
-        <a href={item.href} class="link-draw hover:text-zinc-900">{item.label}</a>
-      ))}
-    </nav>
+<!-- The one deep-green band on the site: it marks the end of every page. -->
+<footer class="mt-12 bg-deep text-on-deep sm:mt-16">
+  <div class={`${container} py-12 sm:py-16`}>
+    <!-- Shown on every page, so help is never more than a scroll away. -->
+    <p class="max-w-[65ch] rounded-2xl bg-surface p-6 text-base leading-relaxed text-body">
+      <strong class="text-ink">Need help right now?</strong> This website is not monitored for emergencies. If you are in crisis, call or
+      text <a href="tel:988" class={textLink}>9-8-8</a> (Suicide Crisis Helpline, Canada) or call <a href="tel:911" class={textLink}>9-1-1</a>.
+    </p>
+
+    <div class="on-deep mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+      <nav aria-label="Footer">
+        <h2 class={heading}>Pages</h2>
+        <ul class="mt-3">
+          {nav.map((item) => (
+            <li>
+              <a href={item.href} class={footerLink}>{item.label}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <div>
+        <h2 class={heading}>Contact</h2>
+        <ul class="mt-3">
+          <li>
+            <a href={phone.href} class={footerLink}>Call {phone.label}</a>
+          </li>
+          <li>
+            <a href={`mailto:${email}`} class={`${footerLink} [overflow-wrap:anywhere]`}>{email}</a>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h2 class={heading}>Hours</h2>
+        <dl class="mt-3 space-y-3 text-base">
+          {hours.map((slot) => (
+            <div>
+              <dt class="font-bold">{slot.days}</dt>
+              <dd>{slot.time}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </div>
+
+    <div class="on-deep mt-12 flex flex-col gap-4 border-t-2 border-on-deep/30 pt-6 text-base sm:flex-row sm:items-center sm:justify-between">
+      <p>&copy; {new Date().getFullYear()} Hope at Home Counselling Services</p>
+      <a href="#main" class={footerLink}>Back to top</a>
+    </div>
   </div>
-  <p class="mt-12 border-t border-zinc-200 pt-6 text-sm text-zinc-500">&copy; {new Date().getFullYear()} Hope at Home Counselling Services</p>
 </footer>

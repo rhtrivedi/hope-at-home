@@ -1,0 +1,35 @@
+---
+import { faqs } from "../data/faq";
+import { container, eyebrow, h2, textLink } from "../data/site";
+---
+
+<!-- Each answer stays closed until asked for, so the page shows a short list of questions rather than a wall of text.
+     Built on <details>, so it works with a keyboard, a screen reader, and without JavaScript. Nothing animates. -->
+<section id="questions" class={`${container} scroll-mt-8 py-10 sm:py-14`} aria-labelledby="faq-heading">
+  <p class={eyebrow}>Common questions</p>
+  <h2 id="faq-heading" class={`${h2} mt-2`}>Good to know before you reach out</h2>
+
+  <div class="mt-8 max-w-3xl space-y-3">
+    {
+      faqs.map((faq) => (
+        <details class="group rounded-2xl border-2 border-line bg-surface open:border-ink">
+          <summary class="flex min-h-16 cursor-pointer list-none items-center justify-between gap-4 rounded-2xl px-6 py-4 text-lg font-bold text-ink transition-colors duration-300 hover:bg-tint [&::-webkit-details-marker]:hidden">
+            {faq.question}
+            <span class="grid size-8 shrink-0 place-items-center rounded-full border-2 border-ink text-xl leading-none" aria-hidden="true">
+              <span class="group-open:hidden">+</span>
+              <span class="hidden group-open:inline">&minus;</span>
+            </span>
+          </summary>
+          <div class="px-6 pb-6">
+            <p class="max-w-[65ch] text-lg leading-relaxed text-body">{faq.answer}</p>
+            {faq.link && (
+              <a href={faq.link.href} class={`${textLink} mt-3 inline-flex min-h-11 items-center gap-2`}>
+                {faq.link.label} <span aria-hidden="true">&rarr;</span>
+              </a>
+            )}
+          </div>
+        </details>
+      ))
+    }
+  </div>
+</section>

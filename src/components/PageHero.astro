@@ -1,31 +1,36 @@
 ---
-import { eyebrow as eyebrowClass } from "../data/site";
+import Sprig from "./Sprig.astro";
+import { container, eyebrow as eyebrowClass, h1, textLink } from "../data/site";
 
 interface Props {
-  eyebrow: string;
+  eyebrow?: string;
   title: string;
   lead?: string;
-  watermark?: string;
+  /** Shown above the title as a way back up one level. */
+  back?: { label: string; href: string };
 }
 
-const { eyebrow, title, lead, watermark } = Astro.props;
+const { eyebrow, title, lead, back } = Astro.props;
 ---
 
-<section class="relative pb-12 pt-16 sm:pb-16 sm:pt-24">
-  {
-    watermark && (
-      <p
-        aria-hidden="true"
-        data-parallax="-0.12"
-        class="pointer-events-none absolute -top-2 right-0 -z-10 select-none font-display text-[34vw] italic leading-none text-sage-200/60 lg:-right-10 lg:text-[22rem]"
-      >
-        {watermark}
-      </p>
-    )
-  }
-  <p class={`reveal ${eyebrowClass}`}>{eyebrow}</p>
-  <h1 class="reveal mt-5 max-w-4xl font-display text-5xl font-medium leading-[1.02] tracking-tight text-zinc-900 sm:text-7xl lg:text-8xl">
-    {title}
-  </h1>
-  {lead && <p class="reveal mt-8 max-w-2xl text-lg leading-relaxed text-zinc-700">{lead}</p>}
+<!-- Every inner page opens with the same sage band, so it is always clear where a page starts. -->
+<section class="mb-6 border-b-2 border-line bg-tint">
+  <div class={`${container} flex items-center justify-between gap-10 py-10 sm:py-16`}>
+    <div>
+      {
+        back && (
+          <a href={back.href} class={`${textLink} inline-flex min-h-11 items-center gap-2 text-base`}>
+            <span aria-hidden="true">&larr;</span> Back to {back.label}
+          </a>
+        )
+      }
+      {eyebrow && <p class={eyebrowClass}>{eyebrow}</p>}
+      <h1 class={`${h1} mt-3 max-w-3xl`}>{title}</h1>
+      {lead && <p class="mt-5 max-w-[65ch] text-xl leading-relaxed text-body">{lead}</p>}
+    </div>
+    <!-- A still drawing on wider screens: the sprig by default, or whatever a page passes as "art". -->
+    <div class="hidden text-brand md:block">
+      <slot name="art"><Sprig class="size-36" /></slot>
+    </div>
+  </div>
 </section>
