@@ -25,6 +25,8 @@ const supported = [
   title="About Kunjal Bhatt, RSW — Hope at Home Counselling Services"
   description="Meet Kunjal Bhatt, BSW, MSW, RSW — a registered social worker with over 12 years of experience, offering counselling in English, Hindi and Gujarati."
 >
+  <!-- The client asked for an italic feel on this page: headings and large figures only, body text stays upright for easy reading. -->
+  <div class="[&_.font-display]:italic">
   <PageHero eyebrow="The heart behind Hope at Home" title="Hi, I'm Kunjal." />
 
   <!-- At a glance: the key facts first, for anyone who only reads the top of the page -->
@@ -48,11 +50,14 @@ const supported = [
       <div>
         <h2 id="story-heading" class={h2}>My story</h2>
         <div class={`${prose} mt-6`}>
-          <p>I'm a BSW, MSW, RSW with over 12 years of experience in the social work field.</p>
-          <p>These years have taught me that everyone's story is different — and so is the support they need.</p>
-          <p>Outside of work, I'm a wife and mom to two growing minds. So I understand that life can be busy, messy, and sometimes overwhelming.</p>
-          <p>I speak English, Hindi, and Gujarati.</p>
-          <p>I love creating a space where you can simply be yourself, feel heard, and take things one step at a time.</p>
+          <p>From a young age, I have been drawn to connecting with others and engaging in meaningful, in-depth conversations.</p>
+          <p>This passion, along with my natural ability to listen with empathy and understanding, inspired me to pursue social work.</p>
+          <p>I chose this path to turn one of my greatest strengths — building genuine human connections — into a way of supporting others through life's challenges and helping them feel heard, understood, and empowered.</p>
+          <p>Listening to everyone's story has taught me that every experience, feeling and emotion is different, and so is the support each person needs.</p>
+          <p>And when I need a moment to step away from holding space for everyone else's stories, emotions, and feelings, I find comfort and joy in the simple, beautiful parts of my own life.</p>
+          <p>Being a wife and a mother of two growing minds is one of my greatest blessings. I cherish the little moments with my family, the laughter, the connection, and the everyday magic of motherhood.</p>
+          <p>I also believe in making space for myself — through self-care, quiet moments, and the little things that help me feel grounded and reconnected with who I am beyond the roles I hold.</p>
+          <p>Because while I love being there for others, I know how important it is to nurture myself, too.</p>
         </div>
         <p class="mt-8 max-w-[65ch] rounded-2xl border-l-8 border-accent bg-surface p-6 text-xl font-bold leading-snug text-ink">
           No judgment. No pressure. Just a safe place to start.
@@ -70,6 +75,7 @@ const supported = [
       </div>
     </div>
   </section>
+  </div>
 
   <ContactCta />
 </Layout>

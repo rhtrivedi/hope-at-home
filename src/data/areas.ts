@@ -102,12 +102,12 @@ const entries: Omit<Area, "href">[] = [
     short: "For when emotions feel too intense or unpredictable.",
     paragraphs: [
       "When emotions feel too intense or unpredictable, it can be exhausting to navigate the daily highs and lows on your own.",
-      "We can help you make sense of overwhelming feelings, quiet the internal noise, and build healthy ways to respond rather than react.",
+      "We can help you make sense of overwhelming feelings, calm the internal noise, and build healthy ways to respond, not react.",
     ],
     benefits: [
       "Making sense of overwhelming feelings",
-      "Quieting the internal noise",
-      "Healthy ways to respond rather than react",
+      "Calming the internal noise",
+      "Healthy ways to respond, not react",
       "Support with the daily highs and lows, so you are not on your own",
     ],
     closing: "A journey towards a more peaceful mind.",
@@ -118,13 +118,13 @@ const entries: Omit<Area, "href">[] = [
     short: "For when work begins to overshadow your well-being.",
     paragraphs: [
       "When the demands of your career begin to overshadow your well-being, the line between living and just surviving starts to blur.",
-      "Get support in a focused, restorative environment where you can break the cycle of chronic exhaustion, establish firm professional limits, and protect your mental space.",
+      "Get support in a focused, restorative environment where you can break the cycle of chronic exhaustion, establish firm professional limits, and protect your work-life balance.",
     ],
     benefits: [
       "A focused, restorative space away from work",
       "Breaking the cycle of chronic exhaustion",
       "Setting firm professional limits",
-      "Protecting your mental space",
+      "Protecting your work-life balance",
     ],
     closing: "A way to a more balanced life.",
   },
@@ -133,7 +133,7 @@ const entries: Omit<Area, "href">[] = [
     title: "Trauma Healing",
     short: "For when painful past experiences still echo in your present.",
     paragraphs: [
-      "When past painful experiences continue to echo in your present, it can feel like you are constantly on guard, stuck in survival mode, or disconnected from the world around you.",
+      "When past painful experiences continue to echo in your present, it can make you feel constantly on edge, emotionally numb, or disconnected from the world around you.",
       "We provide a gentle, deeply respectful environment where you can safely process old wounds, release the heavy weight of the past, and gently piece yourself back together.",
     ],
     benefits: [

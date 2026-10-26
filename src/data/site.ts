@@ -1,8 +1,8 @@
 // Site-wide details shared by the header, footer and pages.
 export const nav = [
   { label: "Home", href: "/" },
-  { label: "About Us", href: "/about" },
   { label: "Areas of Care", href: "/areas-of-care" },
+  { label: "About Us", href: "/about" },
   { label: "Services", href: "/services" },
   { label: "Contact Us", href: "/contact" },
 ];

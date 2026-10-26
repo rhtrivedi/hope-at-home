@@ -85,7 +85,7 @@ const field =
 
       <!-- Without JavaScript the form still posts normally and FormSubmit shows its own confirmation page. -->
       <form id="contact-form" action={formEndpoint} data-ajax={formAjaxEndpoint} method="post" class="mt-4 space-y-8">
-        <p class="max-w-[65ch] text-lg leading-relaxed">Only your name and email are needed. Everything else is optional.</p>
+        <p class="max-w-[65ch] text-lg leading-relaxed">Only your message is optional. Everything else is needed so we can get back to you.</p>
         <input type="hidden" name="_subject" value="New message from the Hope at Home website" />
         <input type="hidden" name="_template" value="table" />
         <!-- No picture puzzle: it is a barrier for many visitors. The hidden field below catches most spam instead. -->
@@ -103,8 +103,8 @@ const field =
         </div>
 
         <div>
-          <label for="phone" class={label}>Your phone number <span class={optional}>(optional)</span></label>
-          <input id="phone" name="phone" type="tel" autocomplete="tel" class={field} />
+          <label for="phone" class={label}>Your phone number</label>
+          <input id="phone" name="phone" type="tel" autocomplete="tel" required class={field} />
         </div>
 
         <fieldset>
@@ -120,10 +120,12 @@ const field =
         </fieldset>
 
         <div>
-          <label for="topic" class={label}>What would you like support with? <span class={optional}>(optional)</span></label>
-          <select id="topic" name="topic" class={field}>
-            <option value="">Not sure yet</option>
+          <label for="topic" class={label}>What would you like support with?</label>
+          <p id="topic-hint" class={hint}>If you are not sure yet, choose "Not sure yet".</p>
+          <select id="topic" name="topic" required aria-describedby="topic-hint" class={field}>
+            <option value="" disabled selected>Choose one</option>
             {topics.map((topic) => <option>{topic}</option>)}
+            <option>Not sure yet</option>
           </select>
         </div>
 

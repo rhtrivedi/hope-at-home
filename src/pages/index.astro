@@ -2,14 +2,12 @@
 import Layout from "../layouts/Layout.astro";
 import AreaIcon from "../components/AreaIcon.astro";
 import ContactCta from "../components/ContactCta.astro";
-import Portrait from "../components/Portrait.astro";
 import Steps from "../components/Steps.astro";
 import { areas } from "../data/areas";
 import { buttonPrimary, buttonSecondary, container, eyebrow, figure, h1, h2, languages, phone, prose, services, textLink } from "../data/site";
 
 const facts = [
   { value: "12+ years", label: "of experience in social work" },
-  { value: "50 minutes", label: "for every session" },
   { value: `${languages.length} languages`, label: languages.join(", ") },
 ];
 ---
@@ -20,8 +18,7 @@ const facts = [
 >
   <!-- Hero: one message, one main action -->
   <section class={`${container} pb-10 pt-10 sm:pb-14 sm:pt-16`}>
-    <div class="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-14">
-      <div>
+    <div>
         <p class={eyebrow}>Hope at Home Counselling Services</p>
         <h1 class={`${h1} mt-3 max-w-3xl`}>
           A place for hope.
@@ -36,11 +33,9 @@ const facts = [
           <a href={phone.href} class={buttonSecondary}>Call {phone.label}</a>
         </div>
         <p class="mt-8 text-lg font-bold text-ink">No judgment. No pressure. Just a safe place to start.</p>
-      </div>
-      <Portrait loading="eager" class="mx-auto lg:mx-0" />
     </div>
 
-    <dl class="mt-10 grid gap-4 sm:grid-cols-3">
+    <dl class="mt-10 grid gap-4 sm:grid-cols-2">
       {facts.map((fact) => (
         <div class="rounded-2xl bg-tint p-6">
           <dt class={`${figure} text-3xl`}>{fact.value}</dt>
