@@ -1,6 +1,10 @@
 ---
-// TODO: placeholder stock photo (Unsplash), not Kunjal. Before launch, replace
-// public/images/portrait-placeholder.jpg with her own portrait (4:5, at least 800×1000) and fix the alt text.
+// Kunjal's cut-out photo from the client's PowerPoint (Website.pptx, October 2026), shown as a sticker.
+// The edges were cleaned up (leftover background between the legs and under the left elbow removed).
+// Astro resizes the large source PNG at build time, so visitors download a small WebP.
+import { Image } from "astro:assets";
+import sticker from "../assets/kunjal-sticker.png";
+
 interface Props {
   class?: string;
   loading?: "eager" | "lazy";
@@ -9,18 +13,17 @@ interface Props {
 const { class: className, loading = "lazy" } = Astro.props;
 ---
 
-<figure class:list={["w-full max-w-xs", className]}>
-  <!-- Styled as a sticker: a thick light edge, a fixed slight tilt and a soft shadow. It is still: nothing here moves. -->
-  <div class="-rotate-2 rounded-[2rem] border-2 border-ink bg-surface p-3 shadow-xl">
-    <img
-      src="/images/portrait-placeholder.jpg"
-      alt="Portrait of Kunjal Bhatt (placeholder photo)"
-      width="800"
-      height="1000"
-      loading={loading}
-      class="aspect-[4/5] w-full rounded-3xl object-cover"
-    />
-  </div>
+<figure class:list={["w-full max-w-60", className]}>
+  <!-- The sticker edge is a ring of still shadows in the page's surface colour, with one soft shadow under it. Nothing here moves. -->
+  <Image
+    src={sticker}
+    alt="Kunjal Bhatt smiling, in sunglasses and a cream vest"
+    widths={[240, 480, 720]}
+    sizes="15rem"
+    format="webp"
+    loading={loading}
+    class="sticker h-auto w-full"
+  />
   <figcaption class="mt-6">
     <span class="block font-display text-xl font-semibold text-ink">Kunjal Bhatt</span>
     <span class="block text-base text-body">BSW, MSW, RSW &middot; Registered Social Worker</span>

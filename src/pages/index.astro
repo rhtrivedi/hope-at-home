@@ -2,8 +2,11 @@
 import Layout from "../layouts/Layout.astro";
 import AreaIcon from "../components/AreaIcon.astro";
 import ContactCta from "../components/ContactCta.astro";
+import Portrait from "../components/Portrait.astro";
+import PsychologyToday from "../components/PsychologyToday.astro";
 import Steps from "../components/Steps.astro";
 import { areas } from "../data/areas";
+import { programs } from "../data/programs";
 import { buttonPrimary, buttonSecondary, container, eyebrow, figure, h1, h2, languages, phone, prose, services, textLink } from "../data/site";
 
 const facts = [
@@ -74,16 +77,19 @@ const facts = [
 
   <!-- About -->
   <section class="my-10 border-y-2 border-line bg-tint py-14 sm:my-14 sm:py-20" aria-labelledby="about-heading">
-    <div class={container}>
-      <p class={eyebrow}>The heart behind Hope at Home</p>
-      <h2 id="about-heading" class={`${h2} mt-2`}>Hi, I'm Kunjal.</h2>
-      <div class={`${prose} mt-5`}>
-        <p>I'm a Registered Social Worker with over 12 years of experience.</p>
-        <p>I love creating a space where you can simply be yourself, feel heard, and take things one step at a time.</p>
+    <div class={`${container} grid items-center gap-10 md:grid-cols-[minmax(0,1fr)_15rem] lg:gap-14`}>
+      <div>
+        <p class={eyebrow}>The heart behind Hope at Home</p>
+        <h2 id="about-heading" class={`${h2} mt-2`}>Hi, I'm Kunjal.</h2>
+        <div class={`${prose} mt-5`}>
+          <p>I'm a Registered Social Worker with over 12 years of experience.</p>
+          <p>I love creating a space where you can simply be yourself, feel heard, and take things one step at a time.</p>
+        </div>
+        <a href="/about" class={`${textLink} mt-6 inline-flex min-h-11 items-center gap-2`}>
+          Read more about Kunjal <span aria-hidden="true">&rarr;</span>
+        </a>
       </div>
-      <a href="/about" class={`${textLink} mt-6 inline-flex min-h-11 items-center gap-2`}>
-        Read more about Kunjal <span aria-hidden="true">&rarr;</span>
-      </a>
+      <Portrait class="mx-auto md:mx-0" />
     </div>
   </section>
 
@@ -105,10 +111,23 @@ const facts = [
     </ul>
 
     <p class="mt-6 max-w-[65ch] text-lg leading-relaxed">Many major insurance plans cover our services.</p>
+
+    <!-- The two funded programs, by name only: the full details are on the services page. -->
+    <h3 class="mt-8 font-display text-2xl font-semibold leading-snug text-ink">Funded programs</h3>
+    <ul class="mt-4 grid gap-4 md:grid-cols-2">
+      {programs.map((program) => (
+        <li class="rounded-2xl bg-tint p-6">
+          <p class="text-lg font-bold leading-snug text-ink">{program.title}</p>
+          <p class="mt-1 text-base leading-relaxed text-body">{program.who}</p>
+        </li>
+      ))}
+    </ul>
     <a href="/services" class={`${textLink} mt-4 inline-flex min-h-11 items-center gap-2`}>
       See services and insurance <span aria-hidden="true">&rarr;</span>
     </a>
   </section>
 
   <ContactCta />
+
+  <PsychologyToday />
 </Layout>

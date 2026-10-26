@@ -1,4 +1,8 @@
 ---
+import { Image } from "astro:assets";
+// A small personal symbol the client asked for (from Website.pptx): a deer under a moon, for astrology reasons.
+// Purely decorative, so screen readers skip it.
+import deerMoon from "../assets/deer-moon.jpg";
 import { container, email, hours, nav, phone, textLink } from "../data/site";
 
 const heading = "font-display text-xl font-semibold text-on-deep";
@@ -54,7 +58,11 @@ const footerLink =
 
     <div class="on-deep mt-12 flex flex-col gap-4 border-t-2 border-on-deep/30 pt-6 text-base sm:flex-row sm:items-center sm:justify-between">
       <p>&copy; {new Date().getFullYear()} Hope at Home Counselling Services</p>
-      <a href="#main" class={footerLink}>Back to top</a>
+      <div class="flex items-center gap-4">
+        <!-- Kept rectangular and tiny, as in the client's deck (about 2% of the slide width). -->
+        <Image src={deerMoon} alt="" widths={[48, 96]} sizes="1.5rem" format="webp" class="h-4 w-auto" />
+        <a href="#main" class={footerLink}>Back to top</a>
+      </div>
     </div>
   </div>
 </footer>

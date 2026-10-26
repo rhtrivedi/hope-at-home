@@ -147,3 +147,11 @@ html:not(.js) .js-only {
     transparent calc(50% + 1px)
   );
 }
+
+/* Kunjal's cut-out photo as a sticker, like the client's deck: a white die-cut edge traced around the photo's
+   outline, with a soft shadow under it. The edge stays white in both themes, as a real sticker would. Nothing moves. */
+.sticker {
+  --edge: #fffefb;
+  filter: drop-shadow(0.25rem 0 0 var(--edge)) drop-shadow(-0.25rem 0 0 var(--edge)) drop-shadow(0 0.25rem 0 var(--edge))
+    drop-shadow(0 -0.25rem 0 var(--edge)) drop-shadow(0 0.5rem 0.75rem rgb(0 0 0 / 0.2));
+}

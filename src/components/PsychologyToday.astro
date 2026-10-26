@@ -1,0 +1,13 @@
+---
+import { container, h2, psychologyTodayUrl, textLink } from "../data/site";
+---
+
+<section class={`${container} py-6`} aria-labelledby="pt-heading">
+  <h2 id="pt-heading" class={h2}>Curious about working together?</h2>
+  <p class="mt-4 max-w-[65ch] text-lg leading-relaxed">
+    Visit our Psychology Today profile to learn more about our counselling services and approach.
+  </p>
+  <a href={psychologyTodayUrl} target="_blank" rel="noopener noreferrer" class={`${textLink} mt-4 inline-flex min-h-11 items-center gap-2`}>
+    View our Psychology Today profile (opens in a new tab)
+  </a>
+</section>
