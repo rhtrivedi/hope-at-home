@@ -17,8 +17,8 @@ export const formRecipient = "rhtrivedi92@outlook.com";
 export const formEndpoint = `https://formsubmit.co/${formRecipient}`;
 export const formAjaxEndpoint = `https://formsubmit.co/ajax/${formRecipient}`;
 
-// TODO: replace with Kunjal's Psychology Today profile URL.
-export const psychologyTodayUrl = "https://www.psychologytoday.com/ca";
+// Kunjal's own Psychology Today profile (from the client, October 2026).
+export const psychologyTodayUrl = "https://www.psychologytoday.com/ca/therapists/hope-at-home-counseling-services-london-on/1299151";
 
 export const hours = [
   { days: "Monday to Friday", time: "9:00 AM to 9:00 PM" },

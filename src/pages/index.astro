@@ -77,7 +77,9 @@ const facts = [
 
   <!-- About -->
   <section class="my-10 border-y-2 border-line bg-tint py-14 sm:my-14 sm:py-20" aria-labelledby="about-heading">
-    <div class={`${container} grid items-center gap-10 md:grid-cols-[minmax(0,1fr)_15rem] lg:gap-14`}>
+    <!-- Photo on the left, sized so it is about as tall as the text beside it. -->
+    <div class={`${container} grid items-center gap-10 md:grid-cols-[8rem_minmax(0,1fr)] lg:gap-14`}>
+      <Portrait caption={false} class="mx-auto max-w-40 md:mx-0 md:max-w-32" />
       <div>
         <p class={eyebrow}>The heart behind Hope at Home</p>
         <h2 id="about-heading" class={`${h2} mt-2`}>Hi, I'm Kunjal.</h2>
@@ -89,7 +91,6 @@ const facts = [
           Read more about Kunjal <span aria-hidden="true">&rarr;</span>
         </a>
       </div>
-      <Portrait class="mx-auto md:mx-0" />
     </div>
   </section>
 
@@ -110,7 +111,7 @@ const facts = [
       ))}
     </ul>
 
-    <p class="mt-6 max-w-[65ch] text-lg leading-relaxed">Many major insurance plans cover our services.</p>
+    <p class="mt-6 max-w-[65ch] text-lg font-bold leading-relaxed text-ink">Our services are in-network with all insurance providers.</p>
 
     <!-- The two funded programs, by name only: the full details are on the services page. -->
     <h3 class="mt-8 font-display text-2xl font-semibold leading-snug text-ink">Funded programs</h3>

@@ -8,9 +8,11 @@ import sticker from "../assets/kunjal-sticker.png";
 interface Props {
   class?: string;
   loading?: "eager" | "lazy";
+  /** Name and credentials under the photo. Turn off where the heading beside it already says who she is. */
+  caption?: boolean;
 }
 
-const { class: className, loading = "lazy" } = Astro.props;
+const { class: className, loading = "lazy", caption = true } = Astro.props;
 ---
 
 <figure class:list={["w-full max-w-60", className]}>
@@ -24,8 +26,12 @@ const { class: className, loading = "lazy" } = Astro.props;
     loading={loading}
     class="sticker h-auto w-full"
   />
-  <figcaption class="mt-6">
-    <span class="block font-display text-xl font-semibold text-ink">Kunjal Bhatt</span>
-    <span class="block text-base text-body">BSW, MSW, RSW &middot; Registered Social Worker</span>
-  </figcaption>
+  {
+    caption && (
+      <figcaption class="mt-6">
+        <span class="block font-display text-xl font-semibold text-ink">Kunjal Bhatt</span>
+        <span class="block text-base text-body">BSW, MSW, RSW &middot; Registered Social Worker</span>
+      </figcaption>
+    )
+  }
 </figure>
