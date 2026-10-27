@@ -10,10 +10,9 @@ export const nav = [
 export const phone = { label: "519-701-5740", href: "tel:+15197015740" };
 export const email = "therapistkunjalbhatt@gmail.com";
 
-// Contact form messages are delivered by FormSubmit (formsubmit.co) to this inbox.
-// TODO: temporary developer inbox — replace with the client's address before launch.
+// Contact form messages are delivered by FormSubmit (formsubmit.co) to the practice's own inbox.
 // The first message sent to a new address triggers a one-time activation email that must be confirmed.
-export const formRecipient = "rhtrivedi92@outlook.com";
+export const formRecipient = email;
 export const formEndpoint = `https://formsubmit.co/${formRecipient}`;
 export const formAjaxEndpoint = `https://formsubmit.co/ajax/${formRecipient}`;
 
