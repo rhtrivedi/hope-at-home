@@ -8,6 +8,7 @@ import "../styles/global.css";
 import ReadingSettings from "../components/ReadingSettings.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import ConsentBanner from "../components/ConsentBanner.astro";
 
 interface Props {
   title: string;
@@ -72,5 +73,6 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       <slot />
     </main>
     <Footer />
+    <ConsentBanner />
   </body>
 </html>
