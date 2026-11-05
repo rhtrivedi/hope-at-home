@@ -1,0 +1,102 @@
+---
+import { buttonPrimary, buttonSecondary, container } from "../data/site";
+
+// Google Analytics measurement ID. Loaded only after a visitor says yes.
+const gaId = "G-WBBVD0TDDZ";
+---
+
+<div
+  id="consent-banner"
+  role="region"
+  aria-label="Counting visits"
+  hidden
+  class="fixed inset-x-0 bottom-0 z-40 border-t-2 border-ink bg-surface py-5 shadow-lg"
+>
+  <div
+    class={`${container} flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between`}
+  >
+    <div class="max-w-[65ch]">
+      <p class="text-lg font-bold text-ink">
+        May we count visits to this site?
+      </p>
+      <p class="mt-1 text-lg leading-relaxed text-body">
+        We use Google Analytics, which uses cookies, to see which pages help
+        people. It does not receive what you type in our form. The site works
+        the same if you say no.
+      </p>
+    </div>
+    <div class="flex flex-col gap-3 sm:shrink-0 sm:flex-row">
+      <button type="button" id="consent-accept" class={buttonPrimary}
+        >Yes, that is fine</button
+      >
+      <button type="button" id="consent-decline" class={buttonSecondary}
+        >No thanks</button
+      >
+    </div>
+  </div>
+</div>
+
+<script is:inline define:vars={{ gaId }}>
+  (() => {
+    const KEY = "hah-consent";
+    const read = () => {
+      try {
+        return localStorage.getItem(KEY);
+      } catch {
+        return null;
+      }
+    };
+    const write = (value) => {
+      try {
+        localStorage.setItem(KEY, value);
+      } catch {}
+    };
+    const banner = document.getElementById("consent-banner");
+
+    function loadAnalytics() {
+      // Counts only the real site, never local testing or Vercel previews.
+      if (location.hostname !== "www.hopeathome.ca" || window.gtag) return;
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () {
+        window.dataLayer.push(arguments);
+      };
+      window.gtag("js", new Date());
+      // Ad personalisation stays off until ads actually start (change then, together with the consent wording).
+      window.gtag("config", gaId, {
+        allow_google_signals: false,
+        allow_ad_personalization_signals: false,
+      });
+      const s = document.createElement("script");
+      s.async = true;
+      s.src = "https://www.googletagmanager.com/gtag/js?id=" + gaId;
+      document.head.appendChild(s);
+    }
+
+    // Calls and email taps. The crisis numbers (911, 988) are never counted.
+    document.addEventListener("click", (event) => {
+      if (!window.gtag || !(event.target instanceof Element)) return;
+      const link = event.target.closest("a[href]");
+      if (!link) return;
+      const href = link.getAttribute("href") || "";
+      if (href.startsWith("tel:") && !/^tel:(911|988)$/.test(href))
+        window.gtag("event", "phone_click");
+      else if (href.startsWith("mailto:")) window.gtag("event", "email_click");
+    });
+
+    const saved = read();
+    if (saved === "granted") loadAnalytics();
+    else if (!saved && banner) banner.hidden = false;
+
+    document.getElementById("consent-accept")?.addEventListener("click", () => {
+      write("granted");
+      if (banner) banner.hidden = true;
+      loadAnalytics();
+    });
+    document
+      .getElementById("consent-decline")
+      ?.addEventListener("click", () => {
+        write("denied");
+        if (banner) banner.hidden = true;
+      });
+  })();
+</script>
