@@ -1,0 +1,26 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import { buttonPrimary, buttonSecondary, container, prose } from "../data/site";
+---
+
+<Layout
+  title="Page not found — Hope at Home Counselling Services"
+  description="We could not find that page. Use the links on this page to go back to the home page or get in touch."
+>
+  <PageHero
+    eyebrow="Page not found"
+    title="We could not find that page."
+    lead="The link may be old, or the address may have a typing mistake. Nothing is wrong on your side."
+  />
+
+  <section class={`${container} py-6 sm:py-10`}>
+    <div class={prose}>
+      <p>Here are two places to go next.</p>
+    </div>
+    <div class="mt-6 flex flex-col gap-4 sm:flex-row">
+      <a href="/" class={buttonPrimary}>Go to the home page</a>
+      <a href="/contact/" class={buttonSecondary}>Get in touch</a>
+    </div>
+  </section>
+</Layout>

@@ -15,6 +15,7 @@ interface Props {
 }
 
 const { title, description } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <html lang="en">
@@ -28,6 +29,7 @@ const { title, description } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
     <!-- Applies saved reading settings before the first paint, so the page never flashes or jumps after loading.
          Colours follow the device's light/dark setting unless the visitor has chosen one. -->
     <script is:inline>
@@ -46,11 +48,18 @@ const { title, description } = Astro.props;
           if (value && value !== "standard") root.dataset[pref] = value;
         }
         const theme = saved("theme");
-        if (theme === "dark" || (theme !== "light" && matchMedia("(prefers-color-scheme: dark)").matches)) root.dataset.theme = "dark";
+        if (
+          theme === "dark" ||
+          (theme !== "light" &&
+            matchMedia("(prefers-color-scheme: dark)").matches)
+        )
+          root.dataset.theme = "dark";
       })();
     </script>
   </head>
-  <body class="flex min-h-screen flex-col bg-page font-sans text-lg text-body antialiased">
+  <body
+    class="flex min-h-screen flex-col bg-page font-sans text-lg text-body antialiased"
+  >
     <a
       href="#main"
       class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-xl focus:border-2 focus:border-ink focus:bg-surface focus:px-5 focus:py-3 focus:font-bold focus:text-ink"
