@@ -10,7 +10,6 @@ import {
   container,
   email,
   figure,
-  formAjaxEndpoint,
   formEndpoint,
   h2,
   h3,
@@ -128,26 +127,15 @@ const field =
         </p>
       </div>
 
-      <!-- Without JavaScript the form still posts normally and FormSubmit shows its own confirmation page. -->
-      <form
-        id="contact-form"
-        action={formEndpoint}
-        data-ajax={formAjaxEndpoint}
-        method="post"
+      <!-- Without JavaScript the form still posts normally and comes back to this page with ?sent=1 or ?error=1. -->
+      <form id="contact-form" action={formEndpoint} method="post"
         class="mt-4 space-y-8"
       >
         <p class="max-w-[65ch] text-lg leading-relaxed">
           Only your message is optional. Everything else is needed so we can get
           back to you.
         </p>
-        <input
-          type="hidden"
-          name="_subject"
-          value="New message from the Hope at Home website"
-        />
-        <input type="hidden" name="_template" value="table" />
         <!-- No picture puzzle: it is a barrier for many visitors. The hidden field below catches most spam instead. -->
-        <input type="hidden" name="_captcha" value="false" />
         <input
           type="text"
           name="_honey"
@@ -286,6 +274,15 @@ const field =
   const button = form?.querySelector<HTMLButtonElement>("button[type=submit]");
 
   if (form && done && error && button) {
+    // A visitor without JavaScript is sent back here after the form posts.
+    const outcome = new URLSearchParams(location.search);
+    if (outcome.has("sent")) {
+      form.hidden = true;
+      done.hidden = false;
+    } else if (outcome.has("error")) {
+      error.hidden = false;
+    }
+
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
       // aria-disabled rather than disabled, so the button keeps keyboard focus while sending.
@@ -295,7 +292,7 @@ const field =
       error.hidden = true;
 
       try {
-        const response = await fetch(form.dataset.ajax!, {
+        const response = await fetch(form.action, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -304,7 +301,7 @@ const field =
           body: JSON.stringify(Object.fromEntries(new FormData(form))),
         });
         const result = await response.json();
-        if (!response.ok || String(result.success) !== "true")
+        if (!response.ok || result.success !== true)
           throw new Error(result.message);
         form.hidden = true;
         done.hidden = false;
