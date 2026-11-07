@@ -3,7 +3,9 @@
 import { hours, languages, phone, services } from "./site";
 
 const openHours = hours.map((slot) => `${slot.days}, ${slot.time}`).join(". ");
-const prices = services.map((service) => `${service.title}: $${service.price}`).join(". ");
+const prices = services
+  .map((service) => `${service.title}: $${service.price}`)
+  .join(". ");
 
 export const steps = [
   {
@@ -29,11 +31,17 @@ export interface Faq {
 export const faqs: Faq[] = [
   {
     question: "What if I don't know what to say?",
-    answer: "That is okay. You don't need to have the right words, or know exactly what you need. We can work it out together, at your pace.",
+    answer:
+      "That is okay. You don't need to have the right words, or know exactly what you need. We can work it out together, at your pace.",
   },
   {
     question: "How long is a session?",
     answer: "Every session is 50 minutes.",
+  },
+  {
+    question: "Are sessions online or in person?",
+    answer:
+      "Almost all sessions are online, so you can meet from home anywhere in Ontario. In-person sessions in London, Ontario can sometimes be arranged. Please ask.",
   },
   {
     question: "How much does it cost?",
@@ -61,7 +69,6 @@ export const faqs: Faq[] = [
 ];
 
 // Open questions for the client — add each to `faqs` once she has answered:
-// - Are sessions in person, online, by phone, or a mix? Where is the office?
 // - What is the cancellation or rescheduling policy?
 // - How is privacy and confidentiality handled?
 // - Is a doctor's referral needed?
