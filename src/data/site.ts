@@ -10,11 +10,8 @@ export const nav = [
 export const phone = { label: "519-701-5740", href: "tel:+15197015740" };
 export const email = "therapistkunjalbhatt@gmail.com";
 
-// Contact form messages are delivered by FormSubmit (formsubmit.co) to the practice's own inbox.
-// The first message sent to a new address triggers a one-time activation email that must be confirmed.
-export const formRecipient = email;
-export const formEndpoint = `https://formsubmit.co/${formRecipient}`;
-export const formAjaxEndpoint = `https://formsubmit.co/ajax/${formRecipient}`;
+// Contact form messages go to our own function in api/contact.ts, which emails them to the practice's inbox.
+export const formEndpoint = "/api/contact";
 
 // Kunjal's own Psychology Today profile (from the client, October 2026).
 export const psychologyTodayUrl = "https://www.psychologytoday.com/ca/therapists/hope-at-home-counseling-services-london-on/1299151";
