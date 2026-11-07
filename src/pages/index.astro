@@ -7,7 +7,20 @@ import PsychologyToday from "../components/PsychologyToday.astro";
 import Steps from "../components/Steps.astro";
 import { areas } from "../data/areas";
 import { programs } from "../data/programs";
-import { buttonPrimary, buttonSecondary, container, eyebrow, figure, h1, h2, languages, phone, prose, services, textLink } from "../data/site";
+import {
+  buttonPrimary,
+  buttonSecondary,
+  container,
+  eyebrow,
+  figure,
+  h1,
+  h2,
+  languages,
+  phone,
+  prose,
+  services,
+  textLink,
+} from "../data/site";
 
 const facts = [
   { value: "12+ years", label: "of experience in social work" },
@@ -16,78 +29,120 @@ const facts = [
 ---
 
 <Layout
-  title="Hope at Home Counselling Services — A Place for Hope. A Space for Change."
-  description="Compassionate, judgment-free counselling with Kunjal Bhatt, RSW. Support for anxiety and depression, ADHD, trauma, parenting, couples, children and youth — in English, Hindi and Gujarati."
+  title="Hope at Home Counselling Services | London, Ontario & Online"
+  description="Judgment-free counselling with Kunjal Bhatt, RSW, in London, Ontario and online. Support for anxiety, ADHD, trauma, parenting, couples, children and youth."
 >
   <!-- Hero: one message, one main action -->
   <section class={`${container} pb-10 pt-10 sm:pb-14 sm:pt-16`}>
     <div>
-        <p class={eyebrow}>Hope at Home Counselling Services</p>
-        <h1 class={`${h1} mt-3 max-w-3xl`}>
-          A place for hope.
-          <span class="block text-brand">A space for change.</span>
-        </h1>
-        <div class={`${prose} mt-6 text-xl`}>
-          <p>At Hope at Home, we believe that meaningful change can begin with a conversation.</p>
-          <p>You deserve support that respects your experiences, your values, and your goals.</p>
-        </div>
-        <div class="mt-8 flex flex-col gap-4 sm:flex-row">
-          <a href="/contact" class={buttonPrimary}>Let's Connect</a>
-          <a href={phone.href} class={buttonSecondary}>Call {phone.label}</a>
-        </div>
-        <p class="mt-8 text-lg font-bold text-ink">No judgment. No pressure. Just a safe place to start.</p>
+      <p class={eyebrow}>Hope at Home Counselling Services</p>
+      <h1 class={`${h1} mt-3 max-w-3xl`}>
+        A place for hope.
+        <span class="block text-brand">A space for change.</span>
+      </h1>
+      <div class={`${prose} mt-6 text-xl`}>
+        <p>
+          At Hope at Home, we believe that meaningful change can begin with a
+          conversation.
+        </p>
+        <p>
+          You deserve support that respects your experiences, your values, and
+          your goals.
+        </p>
+      </div>
+      <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+        <a href="/contact" class={buttonPrimary}>Let's Connect</a>
+        <a href={phone.href} class={buttonSecondary}>Call {phone.label}</a>
+      </div>
+      <p class="mt-8 text-lg font-bold text-ink">
+        No judgment. No pressure. Just a safe place to start.
+      </p>
     </div>
 
     <dl class="mt-10 grid gap-4 sm:grid-cols-2">
-      {facts.map((fact) => (
-        <div class="rounded-2xl bg-tint p-6">
-          <dt class={`${figure} text-3xl`}>{fact.value}</dt>
-          <dd class="mt-1 text-base text-body">{fact.label}</dd>
-        </div>
-      ))}
+      {
+        facts.map((fact) => (
+          <div class="rounded-2xl bg-tint p-6">
+            <dt class={`${figure} text-3xl`}>{fact.value}</dt>
+            <dd class="mt-1 text-base text-body">{fact.label}</dd>
+          </div>
+        ))
+      }
     </dl>
   </section>
 
   <!-- Areas of care -->
-  <section class={`${container} py-10 sm:py-14`} aria-labelledby="areas-heading">
+  <section
+    class={`${container} py-10 sm:py-14`}
+    aria-labelledby="areas-heading"
+  >
     <p class={eyebrow}>Our areas of care</p>
-    <h2 id="areas-heading" class={`${h2} mt-2`}>What would you like support with?</h2>
-    <p class="mt-4 max-w-[65ch] text-lg leading-relaxed">Choose the one that sounds most like you. You can always change your mind later.</p>
+    <h2 id="areas-heading" class={`${h2} mt-2`}>
+      What would you like support with?
+    </h2>
+    <p class="mt-4 max-w-[65ch] text-lg leading-relaxed">
+      Choose the one that sounds most like you. You can always change your mind
+      later.
+    </p>
 
     <!-- Eight choices, so each one is a short row: a drawing, a name and one line. Easy to scan top to bottom. -->
     <ul class="mt-8 grid gap-4 md:grid-cols-2">
-      {areas.map((area) => (
-        <li class="flex">
-          <a href={area.href} class="group flex w-full items-center gap-5 rounded-2xl border-2 border-line bg-surface p-5 transition-all duration-300 hover:border-ink hover:shadow-lg">
-            <span class="grid size-16 shrink-0 place-items-center rounded-2xl bg-tint text-ink"><AreaIcon slug={area.slug} class="size-11" /></span>
-            <span class="min-w-0 flex-1">
-              <h3 class="font-display text-xl font-semibold leading-snug text-ink underline decoration-transparent decoration-2 underline-offset-4 group-hover:decoration-accent-strong">
-                {area.title}
-              </h3>
-              <span class="mt-1 block text-base leading-relaxed text-body">{area.short}</span>
-            </span>
-            <span class="text-xl font-bold text-ink" aria-hidden="true">&rarr;</span>
-          </a>
-        </li>
-      ))}
+      {
+        areas.map((area) => (
+          <li class="flex">
+            <a
+              href={area.href}
+              class="group flex w-full items-center gap-5 rounded-2xl border-2 border-line bg-surface p-5 transition-all duration-300 hover:border-ink hover:shadow-lg"
+            >
+              <span class="grid size-16 shrink-0 place-items-center rounded-2xl bg-tint text-ink">
+                <AreaIcon slug={area.slug} class="size-11" />
+              </span>
+              <span class="min-w-0 flex-1">
+                <h3 class="font-display text-xl font-semibold leading-snug text-ink underline decoration-transparent decoration-2 underline-offset-4 group-hover:decoration-accent-strong">
+                  {area.title}
+                </h3>
+                <span class="mt-1 block text-base leading-relaxed text-body">
+                  {area.short}
+                </span>
+              </span>
+              <span class="text-xl font-bold text-ink" aria-hidden="true">
+                &rarr;
+              </span>
+            </a>
+          </li>
+        ))
+      }
     </ul>
   </section>
 
   <Steps />
 
   <!-- About -->
-  <section class="my-10 border-y-2 border-line bg-tint py-14 sm:my-14 sm:py-20" aria-labelledby="about-heading">
+  <section
+    class="my-10 border-y-2 border-line bg-tint py-14 sm:my-14 sm:py-20"
+    aria-labelledby="about-heading"
+  >
     <!-- Photo on the left, centred against the text and close to its height. -->
-    <div class={`${container} grid items-center gap-10 md:grid-cols-[11rem_minmax(0,1fr)] lg:gap-16`}>
+    <div
+      class={`${container} grid items-center gap-10 md:grid-cols-[11rem_minmax(0,1fr)] lg:gap-16`}
+    >
       <Portrait caption={false} class="mx-auto max-w-44 md:mx-0" />
       <div>
         <p class={eyebrow}>The heart behind Hope at Home</p>
         <h2 id="about-heading" class={`${h2} mt-2`}>Hi, I'm Kunjal.</h2>
         <div class={`${prose} mt-5 text-xl`}>
-          <p>I'm a Registered Social Worker with over 12 years of experience.</p>
-          <p>I love creating a space where you can simply be yourself, feel heard, and take things one step at a time.</p>
+          <p>
+            I'm a Registered Social Worker with over 12 years of experience.
+          </p>
+          <p>
+            I love creating a space where you can simply be yourself, feel
+            heard, and take things one step at a time.
+          </p>
         </div>
-        <a href="/about" class={`${textLink} mt-6 inline-flex min-h-11 items-center gap-2`}>
+        <a
+          href="/about"
+          class={`${textLink} mt-6 inline-flex min-h-11 items-center gap-2`}
+        >
           Read more about Kunjal <span aria-hidden="true">&rarr;</span>
         </a>
       </div>
@@ -95,35 +150,60 @@ const facts = [
   </section>
 
   <!-- Services & fees -->
-  <section class={`${container} py-10 sm:py-14`} aria-labelledby="services-heading">
+  <section
+    class={`${container} py-10 sm:py-14`}
+    aria-labelledby="services-heading"
+  >
     <p class={eyebrow}>Services and fees</p>
     <h2 id="services-heading" class={`${h2} mt-2`}>Care for every chapter.</h2>
-    <p class="mt-4 max-w-[65ch] text-lg leading-relaxed">Every session is 50 minutes.</p>
+    <p class="mt-4 max-w-[65ch] text-lg leading-relaxed">
+      Every session is 50 minutes.
+    </p>
 
     <ul class="mt-8 grid gap-4 md:grid-cols-3">
-      {services.map((service) => (
-        <li class="sticky-note flex flex-col p-6 pb-10 sm:p-8 sm:pb-12">
-          <h3 class="font-display text-2xl font-semibold leading-snug">{service.title}</h3>
-          <p class="mt-auto pt-4 font-display text-4xl font-semibold">
-            ${service.price} <span class="font-sans text-base font-normal">for 50 minutes</span>
-          </p>
-        </li>
-      ))}
+      {
+        services.map((service) => (
+          <li class="sticky-note flex flex-col p-6 pb-10 sm:p-8 sm:pb-12">
+            <h3 class="font-display text-2xl font-semibold leading-snug">
+              {service.title}
+            </h3>
+            <p class="mt-auto pt-4 font-display text-4xl font-semibold">
+              ${service.price}{" "}
+              <span class="font-sans text-base font-normal">
+                for 50 minutes
+              </span>
+            </p>
+          </li>
+        ))
+      }
     </ul>
 
-    <p class="mt-6 max-w-[65ch] text-lg font-bold leading-relaxed text-ink">Our services are in-network with all insurance providers.</p>
+    <p class="mt-6 max-w-[65ch] text-lg font-bold leading-relaxed text-ink">
+      Our services are in-network with all insurance providers.
+    </p>
 
     <!-- The two funded programs, by name only: the full details are on the services page. -->
-    <h3 class="mt-8 font-display text-2xl font-semibold leading-snug text-ink">Funded programs</h3>
+    <h3 class="mt-8 font-display text-2xl font-semibold leading-snug text-ink">
+      Funded programs
+    </h3>
     <ul class="mt-4 grid gap-4 md:grid-cols-2">
-      {programs.map((program) => (
-        <li class="rounded-2xl bg-tint p-6">
-          <p class="text-lg font-bold leading-snug text-ink">{program.title}</p>
-          <p class="mt-1 text-base leading-relaxed text-body">{program.who}</p>
-        </li>
-      ))}
+      {
+        programs.map((program) => (
+          <li class="rounded-2xl bg-tint p-6">
+            <p class="text-lg font-bold leading-snug text-ink">
+              {program.title}
+            </p>
+            <p class="mt-1 text-base leading-relaxed text-body">
+              {program.who}
+            </p>
+          </li>
+        ))
+      }
     </ul>
-    <a href="/services" class={`${textLink} mt-4 inline-flex min-h-11 items-center gap-2`}>
+    <a
+      href="/services"
+      class={`${textLink} mt-4 inline-flex min-h-11 items-center gap-2`}
+    >
       See services and insurance <span aria-hidden="true">&rarr;</span>
     </a>
   </section>

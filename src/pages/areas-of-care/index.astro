@@ -9,7 +9,7 @@ import { cardLink, container, h3 } from "../../data/site";
 
 <Layout
   title="Areas of Care — Hope at Home Counselling Services"
-  description={`Counselling for ${areas.map((area) => area.title).join(", ")} — a compassionate, judgment-free space with Kunjal Bhatt, RSW.`}
+  description="Counselling in London, Ontario and online for postpartum, anxiety and depression, ADHD, couples, parenting, emotional regulation, work stress and trauma."
 >
   <PageHero
     eyebrow="Our areas of care"
@@ -19,19 +19,23 @@ import { cardLink, container, h3 } from "../../data/site";
 
   <section class={`${container} py-6 sm:py-10`} aria-label="Areas of care">
     <ul class="grid gap-4 sm:grid-cols-2">
-      {areas.map((area) => (
-        <li class="flex">
-          <a href={area.href} class={`${cardLink} w-full`}>
-            <span class="grid size-20 place-items-center rounded-2xl bg-tint text-ink"><AreaIcon slug={area.slug} class="size-14" /></span>
-            <h2 class={`${h3} mt-4`}>{area.title}</h2>
-            <p class="mt-3 text-lg leading-relaxed text-body">{area.short}</p>
-            <p class="mt-4 text-lg font-bold text-brand">{area.closing}</p>
-            <span class="mt-auto pt-6 text-base font-bold text-ink underline decoration-2 underline-offset-4 group-hover:decoration-accent-strong">
-              Read about {area.title} <span aria-hidden="true">&rarr;</span>
-            </span>
-          </a>
-        </li>
-      ))}
+      {
+        areas.map((area) => (
+          <li class="flex">
+            <a href={area.href} class={`${cardLink} w-full`}>
+              <span class="grid size-20 place-items-center rounded-2xl bg-tint text-ink">
+                <AreaIcon slug={area.slug} class="size-14" />
+              </span>
+              <h2 class={`${h3} mt-4`}>{area.title}</h2>
+              <p class="mt-3 text-lg leading-relaxed text-body">{area.short}</p>
+              <p class="mt-4 text-lg font-bold text-brand">{area.closing}</p>
+              <span class="mt-auto pt-6 text-base font-bold text-ink underline decoration-2 underline-offset-4 group-hover:decoration-accent-strong">
+                Read about {area.title} <span aria-hidden="true">&rarr;</span>
+              </span>
+            </a>
+          </li>
+        ))
+      }
     </ul>
   </section>
 
