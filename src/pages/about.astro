@@ -7,9 +7,17 @@ import ContactCta from "../components/ContactCta.astro";
 import { card, container, h2, languages, prose } from "../data/site";
 
 const glance = [
-  { label: "Qualifications", value: "BSW, MSW, RSW", note: "Registered Social Worker" },
+  {
+    label: "Qualifications",
+    value: "BSW, MSW, RSW",
+    note: "Registered Social Worker",
+  },
   { label: "Experience", value: "12+ years", note: "in the social work field" },
-  { label: "Languages", value: languages.join(", "), note: "Choose the one you are most comfortable in" },
+  {
+    label: "Languages",
+    value: languages.join(", "),
+    note: "Choose the one you are most comfortable in",
+  },
 ];
 
 const supported = [
@@ -23,58 +31,103 @@ const supported = [
 
 <Layout
   title="About Kunjal Bhatt, RSW — Hope at Home Counselling Services"
-  description="Meet Kunjal Bhatt, BSW, MSW, RSW — a registered social worker with over 12 years of experience, offering counselling in English, Hindi and Gujarati."
+  description="Meet Kunjal Bhatt, RSW, a registered social worker with over 12 years of experience. Counselling in London, Ontario and online in English, Hindi and Gujarati."
 >
   <!-- The client asked for an italic feel on this page: headings and large figures only, body text stays upright for easy reading. -->
   <div class="[&_.font-display]:italic">
-  <PageHero eyebrow="The heart behind Hope at Home" title="Hi, I'm Kunjal." />
+    <PageHero eyebrow="The heart behind Hope at Home" title="Hi, I'm Kunjal." />
 
-  <!-- At a glance: the key facts first, for anyone who only reads the top of the page -->
-  <section class={`${container} py-6`} aria-labelledby="glance-heading">
-    <h2 id="glance-heading" class="sr-only">At a glance</h2>
-    <dl class="grid gap-4 md:grid-cols-3">
-      {glance.map((item) => (
-        <div class="rounded-2xl bg-tint p-6">
-          <dt class="text-base font-bold text-brand">{item.label}</dt>
-          <dd class="mt-2 font-display text-2xl font-semibold leading-snug text-ink">{item.value}</dd>
-          <dd class="mt-1 text-base text-body">{item.note}</dd>
+    <!-- At a glance: the key facts first, for anyone who only reads the top of the page -->
+    <section class={`${container} py-6`} aria-labelledby="glance-heading">
+      <h2 id="glance-heading" class="sr-only">At a glance</h2>
+      <dl class="grid gap-4 md:grid-cols-3">
+        {
+          glance.map((item) => (
+            <div class="rounded-2xl bg-tint p-6">
+              <dt class="text-base font-bold text-brand">{item.label}</dt>
+              <dd class="mt-2 font-display text-2xl font-semibold leading-snug text-ink">
+                {item.value}
+              </dd>
+              <dd class="mt-1 text-base text-body">{item.note}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </section>
+
+    <!-- Story -->
+    <section
+      class={`${container} py-10 sm:py-14`}
+      aria-labelledby="story-heading"
+    >
+      <div
+        class="grid items-start gap-10 md:grid-cols-[18rem_minmax(0,1fr)] lg:gap-14"
+      >
+        <Portrait loading="eager" class="mx-auto md:mx-0" />
+        <div>
+          <h2 id="story-heading" class={h2}>My story</h2>
+          <div class={`${prose} mt-6`}>
+            <p>
+              From a young age, I have been drawn to connecting with others and
+              engaging in meaningful, in-depth conversations.
+            </p>
+            <p>
+              This passion, along with my natural ability to listen with empathy
+              and understanding, inspired me to pursue social work.
+            </p>
+            <p>
+              I chose this path to turn one of my greatest strengths — building
+              genuine human connections — into a way of supporting others
+              through life's challenges and helping them feel heard, understood,
+              and empowered.
+            </p>
+            <p>
+              Listening to everyone's story has taught me that every experience,
+              feeling and emotion is different, and so is the support each
+              person needs.
+            </p>
+            <p>
+              And when I need a moment to step away from holding space for
+              everyone else's stories, emotions, and feelings, I find comfort
+              and joy in the simple, beautiful parts of my own life.
+            </p>
+            <p>
+              Being a wife and a mother of two growing minds is one of my
+              greatest blessings. I cherish the little moments with my family,
+              the laughter, the connection, and the everyday magic of
+              motherhood.
+            </p>
+            <p>
+              I also believe in making space for myself — through self-care,
+              quiet moments, and the little things that help me feel grounded
+              and reconnected with who I am beyond the roles I hold.
+            </p>
+            <p>
+              Because while I love being there for others, I know how important
+              it is to nurture myself, too.
+            </p>
+          </div>
+          <p
+            class="mt-8 max-w-[65ch] rounded-2xl border-l-8 border-accent bg-surface p-6 text-xl font-bold leading-snug text-ink"
+          >
+            No judgment. No pressure. Just a safe place to start.
+          </p>
         </div>
-      ))}
-    </dl>
-  </section>
+      </div>
+    </section>
 
-  <!-- Story -->
-  <section class={`${container} py-10 sm:py-14`} aria-labelledby="story-heading">
-    <div class="grid items-start gap-10 md:grid-cols-[18rem_minmax(0,1fr)] lg:gap-14">
-      <Portrait loading="eager" class="mx-auto md:mx-0" />
-      <div>
-        <h2 id="story-heading" class={h2}>My story</h2>
-        <div class={`${prose} mt-6`}>
-          <p>From a young age, I have been drawn to connecting with others and engaging in meaningful, in-depth conversations.</p>
-          <p>This passion, along with my natural ability to listen with empathy and understanding, inspired me to pursue social work.</p>
-          <p>I chose this path to turn one of my greatest strengths — building genuine human connections — into a way of supporting others through life's challenges and helping them feel heard, understood, and empowered.</p>
-          <p>Listening to everyone's story has taught me that every experience, feeling and emotion is different, and so is the support each person needs.</p>
-          <p>And when I need a moment to step away from holding space for everyone else's stories, emotions, and feelings, I find comfort and joy in the simple, beautiful parts of my own life.</p>
-          <p>Being a wife and a mother of two growing minds is one of my greatest blessings. I cherish the little moments with my family, the laughter, the connection, and the everyday magic of motherhood.</p>
-          <p>I also believe in making space for myself — through self-care, quiet moments, and the little things that help me feel grounded and reconnected with who I am beyond the roles I hold.</p>
-          <p>Because while I love being there for others, I know how important it is to nurture myself, too.</p>
+    <!-- Experience -->
+    <section
+      class={`${container} py-10 sm:py-14`}
+      aria-labelledby="experience-heading"
+    >
+      <div class={card}>
+        <h2 id="experience-heading" class={h2}>Who I have supported</h2>
+        <div class="mt-6">
+          <CheckList items={supported} />
         </div>
-        <p class="mt-8 max-w-[65ch] rounded-2xl border-l-8 border-accent bg-surface p-6 text-xl font-bold leading-snug text-ink">
-          No judgment. No pressure. Just a safe place to start.
-        </p>
       </div>
-    </div>
-  </section>
-
-  <!-- Experience -->
-  <section class={`${container} py-10 sm:py-14`} aria-labelledby="experience-heading">
-    <div class={card}>
-      <h2 id="experience-heading" class={h2}>Who I have supported</h2>
-      <div class="mt-6">
-        <CheckList items={supported} />
-      </div>
-    </div>
-  </section>
+    </section>
   </div>
 
   <ContactCta />

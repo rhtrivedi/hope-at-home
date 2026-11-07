@@ -5,7 +5,14 @@ import AreaIcon from "../../components/AreaIcon.astro";
 import CheckList from "../../components/CheckList.astro";
 import ContactCta from "../../components/ContactCta.astro";
 import { areas, type Area } from "../../data/areas";
-import { card, container, h2, languages, prose, textLink } from "../../data/site";
+import {
+  card,
+  container,
+  h2,
+  languages,
+  prose,
+  textLink,
+} from "../../data/site";
 
 export function getStaticPaths() {
   return areas.map((area) => ({
@@ -25,25 +32,81 @@ const details = [
   { label: "Session length", value: "50 minutes" },
   { label: "Offered in", value: languages.join(", ") },
 ];
+
+const meta: Record<string, { title: string; description: string }> = {
+  postpartum: {
+    title: "Postpartum Counselling in London, Ontario & Online",
+    description:
+      "Postpartum counselling with Kunjal Bhatt, RSW, in London, Ontario and online. Support while you adjust to life with your little one and find balance.",
+  },
+  "anxiety-depression": {
+    title: "Anxiety & Depression Counselling in London, Ontario & Online",
+    description:
+      "Feeling overwhelmed, anxious or unlike yourself? Counselling with Kunjal Bhatt, RSW, in London, Ontario and online. Build coping tools.",
+  },
+  adhd: {
+    title: "ADHD Counselling in London, Ontario & Online",
+    description:
+      "When your thoughts move in a hundred directions, daily life can feel overwhelming. ADHD counselling with Kunjal Bhatt, RSW, in London, Ontario and online.",
+  },
+  "couples-counselling": {
+    title: "Couples Counselling in London, Ontario & Online",
+    description:
+      "Help to find your way back to each other. Couples counselling with Kunjal Bhatt, RSW, in London, Ontario and online.",
+  },
+  "parent-coaching": {
+    title: "Parent Coaching in London, Ontario & Online",
+    description:
+      "When parenting leaves you overwhelmed or unsure, get practical routine strategies. Parent coaching with Kunjal Bhatt, RSW, in London, Ontario and online.",
+  },
+  "emotional-regulation": {
+    title: "Emotional Regulation Counselling in London, Ontario & Online",
+    description:
+      "When emotions feel too intense or unpredictable, learn to respond rather than react. Counselling with Kunjal Bhatt, RSW, in London, Ontario and online.",
+  },
+  "work-related-stress": {
+    title: "Work-Related Stress Counselling in London, Ontario & Online",
+    description:
+      "When work overshadows your well-being, get support to set limits and protect your balance. Counselling with Kunjal Bhatt, RSW, in London, Ontario and online.",
+  },
+  "trauma-healing": {
+    title: "Trauma Counselling in London, Ontario & Online",
+    description:
+      "Gentle, respectful counselling for painful past experiences. Trauma counselling with Kunjal Bhatt, RSW, in London, Ontario and online.",
+  },
+};
+const seo = meta[area.slug];
 ---
 
-<Layout title={`${area.title} — Hope at Home Counselling Services`} description={area.paragraphs[0]}>
-  <PageHero title={area.title} lead={area.short} back={{ label: "Areas of Care", href: "/areas-of-care" }}>
+<Layout title={seo.title} description={seo.description}>
+  <PageHero
+    title={area.title}
+    lead={area.short}
+    back={{ label: "Areas of Care", href: "/areas-of-care" }}
+  >
     <AreaIcon slot="art" slug={area.slug} class="size-36 text-ink" />
   </PageHero>
 
   <!-- The client's copy, one idea per paragraph -->
-  <section class={`${container} py-6 sm:py-10`} aria-label={`About ${area.title}`}>
+  <section
+    class={`${container} py-6 sm:py-10`}
+    aria-label={`About ${area.title}`}
+  >
     <div class={prose}>
       {area.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
     </div>
-    <p class="mt-8 max-w-[65ch] rounded-2xl border-l-8 border-accent bg-surface p-6 text-xl font-bold leading-snug text-ink">
+    <p
+      class="mt-8 max-w-[65ch] rounded-2xl border-l-8 border-accent bg-surface p-6 text-xl font-bold leading-snug text-ink"
+    >
       {area.closing}
     </p>
   </section>
 
   <!-- Benefits -->
-  <section class={`${container} py-10 sm:py-14`} aria-labelledby="benefits-heading">
+  <section
+    class={`${container} py-10 sm:py-14`}
+    aria-labelledby="benefits-heading"
+  >
     <div class={card}>
       <h2 id="benefits-heading" class={h2}>How our time together can help</h2>
       <div class="mt-6">
@@ -56,14 +119,21 @@ const details = [
   <section class={`${container} py-6`} aria-labelledby="details-heading">
     <h2 id="details-heading" class={h2}>Good to know</h2>
     <dl class="mt-6 grid gap-4 sm:grid-cols-2">
-      {details.map((item) => (
-        <div class="rounded-2xl bg-tint p-6">
-          <dt class="text-base font-bold text-brand">{item.label}</dt>
-          <dd class="mt-2 font-display text-2xl font-semibold leading-snug text-ink">{item.value}</dd>
-        </div>
-      ))}
+      {
+        details.map((item) => (
+          <div class="rounded-2xl bg-tint p-6">
+            <dt class="text-base font-bold text-brand">{item.label}</dt>
+            <dd class="mt-2 font-display text-2xl font-semibold leading-snug text-ink">
+              {item.value}
+            </dd>
+          </div>
+        ))
+      }
     </dl>
-    <a href="/services" class={`${textLink} mt-6 inline-flex min-h-11 items-center gap-2`}>
+    <a
+      href="/services"
+      class={`${textLink} mt-6 inline-flex min-h-11 items-center gap-2`}
+    >
       See fees and insurance <span aria-hidden="true">&rarr;</span>
     </a>
   </section>
@@ -74,13 +144,18 @@ const details = [
   <nav class={`${container} py-10 sm:py-14`} aria-labelledby="others-heading">
     <h2 id="others-heading" class={h2}>Other areas of care</h2>
     <ul class="mt-4">
-      {others.map((other) => (
-        <li>
-          <a href={other.href} class={`${textLink} inline-flex min-h-12 items-center gap-2`}>
-            {other.title} <span aria-hidden="true">&rarr;</span>
-          </a>
-        </li>
-      ))}
+      {
+        others.map((other) => (
+          <li>
+            <a
+              href={other.href}
+              class={`${textLink} inline-flex min-h-12 items-center gap-2`}
+            >
+              {other.title} <span aria-hidden="true">&rarr;</span>
+            </a>
+          </li>
+        ))
+      }
     </ul>
   </nav>
 </Layout>
